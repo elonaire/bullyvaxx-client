@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react';
-// import logo from './logo.svg';
-import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Home from './views/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { pink, red } from '@mui/material/colors';
+import { blueGrey, red } from '@mui/material/colors';
+import { CssBaseline } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -13,20 +12,21 @@ const theme = createTheme({
       main: red[500],
     },
     secondary: {
-      main: pink[500],
+      main: blueGrey[900],
     },
   },
   typography: {
-    fontFamily: 'Zilla Slab',
+    fontFamily: `'Rokkitt', serif`,
+    // fontSize: 16,
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
-          font-family: 'Zilla Slab';
+          font-family: 'Rokkitt', serif;
           font-style: normal;
           font-weight: 400;
-          src: url(https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@300&display=swap);
+          src: url(https://fonts.googleapis.com/css2?family=Rokkitt&display=swap);
         }
       `,
     },
@@ -37,10 +37,9 @@ function App() {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
+      <CssBaseline />
         <Router>
-          <div style={{ position: 'fixed', zIndex: 100, width: '100%' }}>
-            <NavBar />
-          </div>
+          <NavBar />
           <div>
             <Switch>
               <Route exact component={Home} path="/" />
