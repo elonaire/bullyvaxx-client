@@ -7,6 +7,7 @@ interface FormProps {
     submit: any;
     initialValues: any;
     buttonText: string;
+    buttonSize: "small" | "medium" | "large";
 }
 
 interface InputFieldProps {
@@ -15,6 +16,7 @@ interface InputFieldProps {
     label?: string;
     name: string;
     size: 'small' | 'medium';
+    fullWidth?: boolean;
 }
 
 export const FormContext = React.createContext({
@@ -25,14 +27,14 @@ export const FormContext = React.createContext({
 export const InputField: FunctionComponent<InputFieldProps> = (props: InputFieldProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { type, variant, label, name, size } = props;
+    const { type, variant, label, name, size, fullWidth } = props;
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
     return (
-        type !== 'password' ? <TextField color="secondary" size={size} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange} /> : <TextField color="secondary" size={size} value={form[name]} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
+        type !== 'password' ? <TextField color="secondary" fullWidth={fullWidth} size={size} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange} /> : <TextField color="secondary" size={size} value={form[name]} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton
                 aria-label="toggle password visibility"
                 onClick={handleFormChange}
@@ -46,7 +48,7 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
 };
 
 const Form: FunctionComponent<FormProps> = (props: FormProps) => {
-    const { children, submit = () => { }, initialValues, buttonText } = props;
+    const { children, submit = () => { }, initialValues, buttonText, buttonSize } = props;
 
     const [form, setForm] = useState(initialValues);
 
@@ -75,7 +77,7 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
                 {children}
             </FormContext.Provider>
 
-            <Button variant="contained" color="secondary" onClick={() => submit(form)}>{buttonText}</Button>
+            <Button variant="contained" size={buttonSize} color="secondary" onClick={() => submit(form)}>{buttonText}</Button>
         </form>
     );
 }

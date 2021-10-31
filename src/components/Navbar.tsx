@@ -198,6 +198,7 @@ export default function NavBar() {
             <NavLink to="/">HOME</NavLink>
             <NavLink to="/about">ABOUT</NavLink>
             <NavLink to="/faq">FAQ</NavLink>
+            <NavLink to="/sponsors">SPONSORS</NavLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
