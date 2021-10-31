@@ -181,17 +181,20 @@ const Home: FunctionComponent<HomeProps> = () => {
                 <svg style={{ display: 'block' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 318"><path fill="#f44336" fillOpacity="1" d="M0,160L48,154.7C96,149,192,139,288,160C384,181,480,235,576,229.3C672,224,768,160,864,154.7C960,149,1056,203,1152,229.3C1248,256,1344,256,1392,256L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
                 <FeedbackDiv>
                     <Typography variant="h3" style={{ textAlign: 'center' }}>Send us your feedback</Typography>
-                    <Typography variant="h4" style={{ textAlign: 'center' }}>See what people say about us</Typography>
+                    {/* <Typography variant="h4" style={{ textAlign: 'center' }}>See what people say about us</Typography> */}
                     <Grid container spacing={2}>
                         <Grid item sm={7}></Grid>
                         <Grid item sm={4}>
                             <FeedbackForm>
                                 <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
                                     <FormFieldWrapper>
-                                        <InputField size="small" color="secondary" fullWidth={true} name="email" type="text" variant="outlined" label="Email" />
+                                        <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Full Name" />
                                     </FormFieldWrapper>
                                     <FormFieldWrapper>
-                                        <InputField size="small" color="secondary" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
+                                        <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
+                                    </FormFieldWrapper>
+                                    <FormFieldWrapper>
+                                        <InputField size="small" isMultiline={true} color="secondary" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
                                     </FormFieldWrapper>
                                 </Form>
                             </FeedbackForm>

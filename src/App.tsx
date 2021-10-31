@@ -5,6 +5,10 @@ import Home from './views/Home';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blueGrey, red } from '@mui/material/colors';
 import { CssBaseline } from '@mui/material';
+import Footer from './components/Footer';
+import About from './views/About';
+import Faq from './views/Faq';
+import Sponsors from './views/Sponsors';
 
 const theme = createTheme({
   palette: {
@@ -39,13 +43,20 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <div style={{width: '100vw'}}>
+          <div style={{ width: '100vw' }}>
             <NavBar />
           </div>
-          <Switch>
-            <Route exact component={Home} path="/" />
-            {/* <Route exact component={VehicleDetails} path="/vehicle/:id" /> */}
-          </Switch>
+          <div style={{ marginTop: '56px' }}>
+            <Switch>
+              <Route exact component={Home} path="/" />
+              <Route exact component={About} path="/about" />
+              <Route exact component={Faq} path="/faq" />
+              <Route exact component={Sponsors} path="/sponsors" />
+            </Switch>
+          </div>
+          <div style={{ position: 'static', bottom: 0 }}>
+            <Footer></Footer>
+          </div>
         </Router>
       </ThemeProvider>
     </Fragment>
