@@ -17,6 +17,9 @@ interface InputFieldProps {
     name: string;
     size: 'small' | 'medium';
     fullWidth?: boolean;
+    required?: boolean;
+    disabled?: boolean;
+    color: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' ;
 }
 
 export const FormContext = React.createContext({
@@ -27,14 +30,14 @@ export const FormContext = React.createContext({
 export const InputField: FunctionComponent<InputFieldProps> = (props: InputFieldProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { type, variant, label, name, size, fullWidth } = props;
+    const { type, variant, label, name, size, fullWidth, color } = props;
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
     return (
-        type !== 'password' ? <TextField color="secondary" fullWidth={fullWidth} size={size} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange} /> : <TextField color="secondary" size={size} value={form[name]} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
+        type !== 'password' ? <TextField color={color} fullWidth={fullWidth} size={size} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange} /> : <TextField color={color} size={size} value={form[name]} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton
                 aria-label="toggle password visibility"
                 onClick={handleFormChange}

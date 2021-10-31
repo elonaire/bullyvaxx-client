@@ -37,15 +37,15 @@ function App() {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
-      <CssBaseline />
+        <CssBaseline />
         <Router>
-          <NavBar />
-          <div>
-            <Switch>
-              <Route exact component={Home} path="/" />
-              {/* <Route exact component={VehicleDetails} path="/vehicle/:id" /> */}
-            </Switch>
+          <div style={{width: '100vw'}}>
+            <NavBar />
           </div>
+          <Switch>
+            <Route exact component={Home} path="/" />
+            {/* <Route exact component={VehicleDetails} path="/vehicle/:id" /> */}
+          </Switch>
         </Router>
       </ThemeProvider>
     </Fragment>

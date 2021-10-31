@@ -55,8 +55,20 @@ export const FeedbackDiv = styled('div')(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,
 }));
 
+
 export const Video = styled('video')(({ theme }) => ({
     width: '100%'
+}));
+
+const FeedbackForm = styled('div')(({ theme }) => ({
+    width: '100%',
+    background: '#fff',
+    padding: '7%',
+    borderRadius: '5px',
+}));
+
+export const FormFieldWrapper = styled('div')(({ theme }) => ({
+    marginBottom: '3%'
 }));
 
 const Home: FunctionComponent<HomeProps> = () => {
@@ -87,11 +99,11 @@ const Home: FunctionComponent<HomeProps> = () => {
     };
 
     return (
-        <div>
+        <div style={{ width: '100%' }}>
             <Carousel
                 data={data}
                 time={5000}
-                width="100vw"
+                width="100%"
                 height="500px"
                 captionStyle={captionStyle}
                 radius="0"
@@ -115,7 +127,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                 }}
             />
 
-            <Box sx={{ width: '100vw' }}>
+            <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable">
                         <Tab label="BullyVaxx Works, Here’s Why" {...a11yProps(0)} />
@@ -143,8 +155,8 @@ const Home: FunctionComponent<HomeProps> = () => {
                 <StyledTabPanel value={value} index={1}>
                     <Typography variant="h3">Search for your school: </Typography>
                     <Form initialValues={{ form: { username: '' } }} buttonText="Search" buttonSize="medium" submit={() => { }}>
-                        <InputField size="small" name="school_name" type="text" variant="outlined" label="School Name" />
-                        <InputField size="small" name="zip_code" type="text" variant="outlined" label="Zip Code" />
+                        <InputField size="small" color="secondary" name="school_name" type="text" variant="outlined" label="School Name" />
+                        <InputField size="small" color="secondary" name="zip_code" type="text" variant="outlined" label="Zip Code" />
                     </Form>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={2}>
@@ -166,21 +178,27 @@ const Home: FunctionComponent<HomeProps> = () => {
 
 
             <Box sx={{ width: '100%', background: '#fff' }}>
-                <svg style={{ display: 'block' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f44336" fillOpacity="1" d="M0,160L48,154.7C96,149,192,139,288,160C384,181,480,235,576,229.3C672,224,768,160,864,154.7C960,149,1056,203,1152,229.3C1248,256,1344,256,1392,256L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+                <svg style={{ display: 'block' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 318"><path fill="#f44336" fillOpacity="1" d="M0,160L48,154.7C96,149,192,139,288,160C384,181,480,235,576,229.3C672,224,768,160,864,154.7C960,149,1056,203,1152,229.3C1248,256,1344,256,1392,256L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
                 <FeedbackDiv>
                     <Typography variant="h3" style={{ textAlign: 'center' }}>Send us your feedback</Typography>
                     <Typography variant="h4" style={{ textAlign: 'center' }}>See what people say about us</Typography>
                     <Grid container spacing={2}>
-                        <Grid item sm={9}></Grid>
-                        <Grid item sm={3}>
-                            <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
-                                <InputField size="small" fullWidth={true} name="email" type="text" variant="outlined" label="Email" />
-                                <InputField size="small" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
-                            </Form>
+                        <Grid item sm={7}></Grid>
+                        <Grid item sm={4}>
+                            <FeedbackForm>
+                                <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
+                                    <FormFieldWrapper>
+                                        <InputField size="small" color="secondary" fullWidth={true} name="email" type="text" variant="outlined" label="Email" />
+                                    </FormFieldWrapper>
+                                    <FormFieldWrapper>
+                                        <InputField size="small" color="secondary" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
+                                    </FormFieldWrapper>
+                                </Form>
+                            </FeedbackForm>
                         </Grid>
                     </Grid>
                 </FeedbackDiv>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f44336" fillOpacity="1" d="M0,128L48,122.7C96,117,192,107,288,101.3C384,96,480,96,576,117.3C672,139,768,181,864,208C960,235,1056,245,1152,213.3C1248,181,1344,107,1392,69.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 319"><path fill="#f44336" fillOpacity="1" d="M0,128L48,122.7C96,117,192,107,288,101.3C384,96,480,96,576,117.3C672,139,768,181,864,208C960,235,1056,245,1152,213.3C1248,181,1344,107,1392,69.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
             </Box>
 
         </div>
