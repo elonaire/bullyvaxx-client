@@ -1,5 +1,14 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Button, IconButton, InputAdornment, MenuItem, TextField } from "@mui/material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import FormControlLabel from "@mui/material/FormControlLabel";
+// import FormLabel from "@mui/material/FormLabel";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import MenuItem from "@mui/material/MenuItem";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import TextField from "@mui/material/TextField";
 import React, { FunctionComponent, useContext, useState } from "react";
 
 interface FormProps {
@@ -23,6 +32,12 @@ interface InputFieldProps {
     isMultiline?: boolean;
     isSelect?: boolean;
     selectOptions?: any[];
+}
+
+interface RadioProps {
+    label: string;
+    name: string;
+    options: any[];
 }
 
 export const FormContext = React.createContext({
@@ -59,6 +74,26 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
     );
 };
 
+export const FRadioButton: FunctionComponent<RadioProps> = (props: RadioProps) => {
+    const formContext = useContext(FormContext);
+    const { form, handleFormChange } = formContext;
+    const { label, name, options = [] } = props;
+
+    return (
+        <FormControl component="fieldset">
+            {/* <FormLabel component="legend">{label}</FormLabel> */}
+            <RadioGroup
+                aria-label="gender"
+                name="controlled-radio-buttons-group"
+                value={form[name]}
+                onChange={handleFormChange}
+            >
+                {options.map((option, i) => <FormControlLabel key={i} value={option} control={<Radio />} label={label} />)}
+            </RadioGroup>
+        </FormControl>
+    );
+}
+
 const Form: FunctionComponent<FormProps> = (props: FormProps) => {
     const { children, submit = () => { }, initialValues, buttonText, buttonSize } = props;
 
@@ -66,7 +101,7 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
 
     const handleFormChange = <T,>(event: T) => {
         console.log(event);
-        
+
         const type = 'type' as keyof T;
         const target = 'target' as keyof T;
 
