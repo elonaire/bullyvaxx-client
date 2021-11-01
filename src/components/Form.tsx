@@ -35,7 +35,6 @@ interface InputFieldProps {
 }
 
 interface RadioProps {
-    label: string;
     name: string;
     options: any[];
 }
@@ -77,18 +76,18 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
 export const FRadioButton: FunctionComponent<RadioProps> = (props: RadioProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { label, name, options = [] } = props;
+    const { name, options = [] } = props;
 
     return (
         <FormControl component="fieldset">
             {/* <FormLabel component="legend">{label}</FormLabel> */}
             <RadioGroup
                 aria-label="gender"
-                name="controlled-radio-buttons-group"
+                name={name}
                 value={form[name]}
                 onChange={handleFormChange}
             >
-                {options.map((option, i) => <FormControlLabel key={i} value={option} control={<Radio />} label={label} />)}
+                {options.map((option, i) => <FormControlLabel key={i} value={option} control={<Radio />} label={option} />)}
             </RadioGroup>
         </FormControl>
     );
