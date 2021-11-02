@@ -60,7 +60,7 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
                     {option}
                 </MenuItem>
             ))}
-        </TextField> : <TextField color={color} size={size} value={form[name]} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
+        </TextField> : <TextField color={color} size={size} value={form[name]} fullWidth={fullWidth} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton
                 aria-label="toggle password visibility"
                 onClick={handleFormChange}

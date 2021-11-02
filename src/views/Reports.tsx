@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import React, {FunctionComponent} from 'react';
 import Form, {FRadioButton, InputField} from '../components/Form';
 
-interface DashboardProps {}
+interface ReportsProps {}
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,7 +46,7 @@ function a11yProps(index: number) {
   };
 }
 
-const Dashboard: FunctionComponent<DashboardProps> = () => {
+const Reports: FunctionComponent<ReportsProps> = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -896,4 +896,4 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
   );
 };
 
-export default Dashboard;
+export default Reports;

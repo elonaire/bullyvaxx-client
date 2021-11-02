@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import About from './views/About';
 import Faq from './views/Faq';
 import Sponsors from './views/Sponsors';
-import Dashboard from './views/Dashboard';
+import Reports from './views/Reports';
 
 const theme = createTheme({
   palette: {
@@ -52,7 +52,7 @@ function App() {
                   <Route exact component={About} path="/about" />
                   <Route exact component={Faq} path="/faq" />
                   <Route exact component={Sponsors} path="/sponsors" />
-                  <Route exact component={Dashboard} path="/dashboard/forms" />
+                  <Route exact component={Reports} path="/dashboard/forms" />
                 </Switch>
               </div>
             </NavBar>
