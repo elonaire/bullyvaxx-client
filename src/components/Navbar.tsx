@@ -244,6 +244,9 @@ export default function NavBar(props: NavBarProps) {
             <NavLink to="/sponsors">SPONSORS</NavLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
+            <NavLink to="/login">SIGN IN</NavLink>
+          </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">

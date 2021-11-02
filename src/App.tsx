@@ -10,6 +10,7 @@ import About from './views/About';
 import Faq from './views/Faq';
 import Sponsors from './views/Sponsors';
 import Reports from './views/Reports';
+import Login from './views/Login';
 
 const theme = createTheme({
   palette: {
@@ -53,6 +54,7 @@ function App() {
                   <Route exact component={Faq} path="/faq" />
                   <Route exact component={Sponsors} path="/sponsors" />
                   <Route exact component={Reports} path="/dashboard/forms" />
+                  <Route exact component={Login} path="/login" />
                 </Switch>
               </div>
             </NavBar>
