@@ -154,18 +154,49 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             <br />
             Gender of person/student making this threat:  <br /><FRadioButton name="gender" options={['Male', 'Female']} />
             <br />
-            Grade of person if student is making this threat.
+            Grade of person if student is making this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="number"
+              variant="standard"
+            />
             <br />
-            Homeroom Teacher of person/student making this threat.
+            Homeroom Teacher of person/student making this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            When is this attack supposed to occur? dd/mm/yyyy
+            When is this attack supposed to occur? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="date"
+              variant="standard"
+            />
             <br />
-            Do any other people/students have knowledge of this threat? Yes No
+            Do any other people/students have knowledge of this threat? <br /><FRadioButton name="gender" options={['No', 'Yes']} />
             <br />
             If yes, what are their names? (if more than one person, seperate
-            their names using commas)
+            their names using commas) <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            In complete detail provide all information you have on this threat.
+            In complete detail provide all information you have on this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            />
             <br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
@@ -187,31 +218,87 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             authorities: <br />
             Dear Sir, I have information involving a terrorism threat. I am
             reporting this threat through The Threat Alert system. <br />
-            I am a trustee reporting this information for another individual who
-            requests to not be identified; however, I will act as an
-            intermediary so you can immediately access any additional
-            information you need. <br />
-            I am not a trustee for someone else, I am submitting this
-            information on my own behalf. <br />
+            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             I have uploaded an identification video in the Threat Alert System
             database. You can view this video at www.threatalert.us under my
-            username . <br />
+            username <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />. <br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
-            Your Full Name <br />
-            Your cell phone number <br />
-            My e-mail address <br />
-            Name of County <br />
-            County Sheriff's email address <br />
-            Name of person/student making this threat? <br />
-            Gender of person/student making this threat: Male Female <br />
-            When is this attack supposed to occur? mm/dd/yyyy <br />
-            Do any other people/students have knowledge of this threat? Yes No{' '}
+            Your Full Name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Your cell phone number <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            My e-mail address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of County <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            County Sheriff's email address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of person/student making this threat? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Gender of person/student making this threat: <br /><FRadioButton name="gender" options={['Male', 'Female']} /> <br />
+            When is this attack supposed to occur? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="date"
+              variant="standard"
+            /> <br />
+            Do any other people/students have knowledge of this threat? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
             <br />
             If yes, what are their names? (if more than one person, seperate
-            their names using commas) <br />
-            In complete detail provide all information you have on this threat.{' '}
+            their names using commas) <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            In complete detail provide all information you have on this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            />
             <br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
@@ -231,38 +318,118 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             principal: Dear Principal, I have information involving a weapon in
             your school. I am reporting this threat through The Threat Alert
             system. <br />
-            I am a trustee reporting this information for another individual who
-            requests to not be identified; however, I will act as an
-            intermediary so you can immediately access any additional
-            information you need. <br />
-            I am not a trustee for someone else, I am submitting this
-            information on my own behalf. <br />
+            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             I have uploaded an identification video in the Threat Alert System
             database. You can view this video at www.threatalert.us under my
-            username . <br />
+            username <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />. <br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
-            Your Full Name <br />
-            Your cell phone number <br />
-            My e-mail address <br />
-            Name of School <br />
-            Principal’s email address <br />
-            Name of the person/student bringing the weapon to school? <br />
-            Gender of person/student bringing the weapon to school: Male Female{' '}
+            Your Full Name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Your cell phone number <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            My e-mail address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of School <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Principal’s email address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of the person/student bringing the weapon to school? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Gender of person/student bringing the weapon to school: <br /><FRadioButton name="gender" options={['Male', 'Female']} />
             <br />
-            Grade of person/student bringing the weapon to school. <br />
-            Homeroom Teacher of person/student bringing the weapon to school{' '}
+            Grade of person/student bringing the weapon to school. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Homeroom Teacher of person/student bringing the weapon to school <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            What type of weapon is this? <br />
-            Do any other people/students have knowledge of this threat? Yes No{' '}
+            What type of weapon is this? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Do any other people/students have knowledge of this threat? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
             <br />
             If yes, what are their names? (if more than one person, seperate
-            their names using commas) <br />
-            Where does the student keep this weapon at school? <br />
-            Do you know why this student is bringing this weapon to school?{' '}
+            their names using commas) <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Where does the student keep this weapon at school? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Do you know why this student is bringing this weapon to school? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            In complete detail provide all information you have on this threat.{' '}
+            In complete detail provide all information you have on this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            />
             <br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
@@ -284,48 +451,157 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             Dear Principal, I have information involving bullying in your
             school. I am reporting this threat through The Threat Alert system.{' '}
             <br />
-            I am a trustee reporting this information for another individual who
-            requests to not be identified; however, I will act as an
-            intermediary so you can immediately access any additional
-            information you need. <br />
-            I am not a trustee for someone else, I am submitting this
-            information on my own behalf. I have uploaded an identification
-            video in the Threat Alert System database. You can view this video
-            at www.threatalert.us under my username . <br />
+            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
-            Your Full Name <br />
-            Your cell phone number <br />
-            My e-mail address <br />
-            Name of School <br />
-            Principal’s email address <br />
-            What is the first initial in the bully’s first name <br />
-            What is the bully’s last name <br />
-            Full name of bully <br />
-            Gender of bully: Male Female <br />
-            Grade of bully. <br />
-            Homeroom Teacher of bully <br />
-            Date of incident mm/dd/yyyy <br />
-            Time of incident <br />
-            If more than one bully add their names here <br />
-            Names of any other students that supported the bully’s actions{' '}
+            Your Full Name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Your cell phone number <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            My e-mail address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of School <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Principal’s email address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            What is the first initial in the bully’s first name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            What is the bully’s last name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Full name of bully <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Gender of bully: <br /><FRadioButton name="gender" options={['Male', 'Female']} /><br />
+            Grade of bully. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Homeroom Teacher of bully <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Date of incident <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="date"
+              variant="standard"
+            /><br />
+            Time of incident <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="time"
+              variant="standard"
+            /><br />
+            If more than one bully add their names here <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Names of any other students that supported the bully’s actions <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            Did any teacher or staff member see this incident? Yes No <br />
-            If yes, who was the teacher / staff member?
+            Did any teacher or staff member see this incident? <br /><FRadioButton name="gender" options={['Yes', 'No']} /><br />
+            If yes, who was the teacher / staff member? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            What actions did the teacher / staff member take? <br />
-            Where did this incident occur? <br />
-            Did the bully physically abuse the victim? Yes No
+            What actions did the teacher / staff member take? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Where did this incident occur? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Did the bully physically abuse the victim? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
             <br />
-            Was the victim a handicapped student? Yes No Was the victim a
-            younger or smaller student than the bully? Yes No <br />
-            In complete detail provide all information you have on this threat.{' '}
+            Was the victim a handicapped student? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            Was the victim a
+            younger or smaller student than the bully? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            In complete detail provide all information you have on this threat. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
             Have you witnessed this bully abusing other students in the past?
-            Yes No <br />
+            <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
             If Yes, please provide any details of other bullying incidents that
-            you have witnessed or seen in the past involving this bully. <br />
+            you have witnessed or seen in the past involving this bully. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            /><br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
             have submitted is being properly addressed. Thank you.
@@ -346,49 +622,158 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             Dear Principal, I have information involving cyberbullying in your
             school. I am reporting this threat through The Threat Alert system.{' '}
             <br />
-            I am a trustee reporting this information for another individual who
-            requests to not be identified; however, I will act as an
-            intermediary so you can immediately access any additional
-            information you need. <br />
-            I am not a trustee for someone else, I am submitting this
-            information on my own behalf. I have uploaded an identification
-            video in the Threat Alert System database. You can view this video
-            at www.threatalert.us under my username . <br />
+            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
-            Your Full Name <br />
-            Your cell phone number <br />
-            My e-mail address <br />
-            Name of School <br />
-            Principal’s email address <br />
-            What is the first initial in the bully’s first name <br />
-            What is the cyberbully’s last name <br />
-            Full name of cyberbully <br />
-            Gender of cyberbully: Male Female <br />
-            Grade of cyberbully. <br />
-            Homeroom Teacher of cyberbully <br />
-            Date of incident mm/dd/yyyy <br />
-            Time of incident <br />
-            If more than one cyberbully add their names here <br />
-            Names of any other students that supported the cyberbully’s actions{' '}
+            Your Full Name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Your cell phone number <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            My e-mail address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of School <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Principal’s email address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            What is the first initial in the bully’s first name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            What is the cyberbully’s last name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Full name of cyberbully <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Gender of cyberbully: <br /><FRadioButton name="gender" options={['Male', 'Female']} /> <br />
+            Grade of cyberbully. <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Homeroom Teacher of cyberbully <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Date of incident <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="date"
+              variant="standard"
+            /><br />
+            Time of incident <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="time"
+              variant="standard"
+            /><br />
+            If more than one cyberbully add their names here <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Names of any other students that supported the cyberbully’s actions <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            Did any teacher or staff member see this incident? Yes No <br />
-            If yes, who was the teacher / staff member?
+            Did any teacher or staff member see this incident? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            If yes, who was the teacher / staff member? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
-            What actions did the teacher / staff member take? <br />
-            Where did this incident occur? <br />
-            Did the cyberbully physically abuse the victim? Yes No
+            What actions did the teacher / staff member take? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Where did this incident occur? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Did the cyberbully physically abuse the victim? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
             <br />
-            Was the victim a handicapped student? Yes No Was the victim a
-            younger or smaller student than the cyberbully? Yes No <br />
-            In complete detail provide all information you have on this threat.{' '}
+            Was the victim a handicapped student? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            Was the victim a younger or smaller student than the cyberbully? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            In complete detail provide all information you have on this threat. <br /><InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            />
             <br />
             Have you witnessed this cyberbully abusing other students in the
-            past? Yes No <br />
+            past? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
             If Yes, please provide any details of other cyberbullying incidents
             that you have witnessed or seen in the past involving this
-            cyberbully. <br />
+            cyberbully. <br /><InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            /><br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
             have submitted is being properly addressed. Thank you.
@@ -408,35 +793,97 @@ const Dashboard: FunctionComponent<DashboardProps> = () => {
             authorities: <br />
             Dear Sir, I have information involving a threat. I am reporting this
             threat through The Threat Alert system. <br />
-            I am a trustee reporting this information for another individual who
-            requests to not be identified; however, I will act as an
-            intermediary so you can immediately access any additional
-            information you need. <br />
-            I am not a trustee for someone else, I am submitting this
-            information on my own behalf. <br />
+            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             I have uploaded an identification video in the Threat Alert System
             database. You can view this video at www.threatalert.us under my
-            username . <br />
+            username <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />. <br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
-            Your Full Name <br />
-            Your cell phone number <br />
-            My e-mail address <br />
-            Name of County <br />
-            Is the threat against a school? Yes No <br />
-            If this is a threat against a school, principal’s email address{' '}
+            Your Full Name <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Your cell phone number <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            My e-mail address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of County <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Is the threat against a school? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            If this is a threat against a school, principal’s email address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            />
             <br />
             If this is not a threat against a school, County Sheriff’s email
-            address <br />
-            Name of person/student making this threat? <br />
-            Gender of person/student making this threat: Male Female <br />
-            When is this attack supposed to occur? mm/dd/yyyy <br />
-            Do any other people/students have knowledge of this threat? Yes No{' '}
+            address <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Name of person/student making this threat? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            Gender of person/student making this threat:  <br /><FRadioButton name="gender" options={['Male', 'Female']} /> <br />
+            When is this attack supposed to occur? <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="date"
+              variant="standard"
+            /> <br />
+            Do any other people/students have knowledge of this threat? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
             <br />
             If yes, what are their names? (if more than one person, seperate
-            their names using commas) <br />
-            In complete detail provide all information you have on this threat.{' '}
+            their names using commas) <InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+            /><br />
+            In complete detail provide all information you have on this threat. <br /><InputField
+              size="small"
+              color="secondary"
+              name="username"
+              type="text"
+              variant="standard"
+              isMultiline={true}
+            />
             <br />
             Please send me a reply email confirming that you have received this
             information, this will allow me to know that the information that I
