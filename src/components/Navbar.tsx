@@ -65,7 +65,11 @@ const NavLink = styled(Link)(({ theme }) => ({
   display: 'inline-block',
 }));
 
-export default function NavBar() {
+export interface NavBarProps {
+  children?: React.ReactNode;
+}
+
+export default function NavBar(props: NavBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -164,6 +168,8 @@ export default function NavBar() {
     </Menu>
   );
 
+  const { children } = props;
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar color="secondary" elevation={0}>
@@ -244,6 +250,7 @@ export default function NavBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      {children}
     </Box>
   );
 }

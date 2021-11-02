@@ -45,17 +45,19 @@ function App() {
         <CssBaseline />
         <Router>
           <div style={{ width: '100vw' }}>
-            <NavBar />
+            <NavBar>
+              <div style={{ marginTop: '56px' }}>
+                <Switch>
+                  <Route exact component={Home} path="/" />
+                  <Route exact component={About} path="/about" />
+                  <Route exact component={Faq} path="/faq" />
+                  <Route exact component={Sponsors} path="/sponsors" />
+                  <Route exact component={Dashboard} path="/dashboard" />
+                </Switch>
+              </div>
+            </NavBar>
           </div>
-          <div style={{ marginTop: '56px' }}>
-            <Switch>
-              <Route exact component={Home} path="/" />
-              <Route exact component={About} path="/about" />
-              <Route exact component={Faq} path="/faq" />
-              <Route exact component={Sponsors} path="/sponsors" />
-              <Route exact component={Dashboard} path="/dashboard" />
-            </Switch>
-          </div>
+
           <div style={{ position: 'static', bottom: 0 }}>
             <Footer></Footer>
           </div>
