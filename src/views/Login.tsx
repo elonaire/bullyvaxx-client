@@ -64,7 +64,7 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                 });
             } else if (userRole === 'USER') {
                 auth.login(() => {
-                    props.history.push(`/blog/${userId}`);
+                    props.history.push(`/dashboard/forms`);
                 });
             }
         } catch (error: any) {
