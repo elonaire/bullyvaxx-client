@@ -47,7 +47,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                 data: reqBody,
             });
 
-            console.log('res.data', res.data);
+            console.log('res.data', res.data, response, loading);
 
             setResponse(res.data);
             

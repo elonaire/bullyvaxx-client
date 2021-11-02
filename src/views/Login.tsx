@@ -53,7 +53,7 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                 // token = localStorage.getItem("JWTAUTH");
                 userId = decodedToken.sub;
 
-                console.log('userRole', userRole);
+                console.log('userRole', userRole, userId, response, loading);
             }
 
             setLoading(false);
