@@ -52,12 +52,12 @@ function App() {
                   <Route exact component={About} path="/about" />
                   <Route exact component={Faq} path="/faq" />
                   <Route exact component={Sponsors} path="/sponsors" />
-                  <Route exact component={Dashboard} path="/dashboard" />
+                  <Route exact component={Dashboard} path="/dashboard/forms" />
                 </Switch>
               </div>
             </NavBar>
-            <div style={{ position: 'static', bottom: 0 }}>
-              <Footer></Footer>
+            <div style={{ flexGrow: 1, position: 'static', bottom: 0 }}>
+              <Footer />
             </div>
           </div>
         </Router>
