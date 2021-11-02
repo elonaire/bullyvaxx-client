@@ -120,7 +120,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                 thumbnailWidth="100px"
                 style={{
                     textAlign: "center",
-                    maxWidth: "100vw",
+                    width: "100%",
                     maxHeight: "500px",
                     margin: "40px auto",
                     marginTop: '0',

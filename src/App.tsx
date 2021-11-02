@@ -44,7 +44,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <div style={{ width: '100vw' }}>
+          <div style={{ width: '100%' }}>
             <NavBar>
               <div style={{ marginTop: '56px' }}>
                 <Switch>
@@ -56,10 +56,9 @@ function App() {
                 </Switch>
               </div>
             </NavBar>
-          </div>
-
-          <div style={{ position: 'static', bottom: 0 }}>
-            <Footer></Footer>
+            <div style={{ position: 'static', bottom: 0 }}>
+              <Footer></Footer>
+            </div>
           </div>
         </Router>
       </ThemeProvider>

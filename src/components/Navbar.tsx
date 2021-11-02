@@ -16,6 +16,12 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { useLocation } from 'react-router-dom'
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -68,6 +74,8 @@ const NavLink = styled(Link)(({ theme }) => ({
 export interface NavBarProps {
   children?: React.ReactNode;
 }
+
+const drawerWidth = 240;
 
 export default function NavBar(props: NavBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -169,17 +177,18 @@ export default function NavBar(props: NavBarProps) {
   );
 
   const { children } = props;
+  const location = useLocation(); 
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="secondary" elevation={0}>
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="fixed" sx={{ width: location.pathname.includes('dashboard') ? `calc(100% - ${drawerWidth}px)` : '100%', ml: location.pathname.includes('dashboard') ?  `${drawerWidth}px` : 0 }} color="secondary" elevation={0}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2, display: { lg: 'none', md: 'none'} }}
+            sx={{ mr: 2, display: { lg: 'none', md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -248,9 +257,36 @@ export default function NavBar(props: NavBarProps) {
           </Box>
         </Toolbar>
       </AppBar>
+      {location.pathname.includes('dashboard')  && <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          {['Submit Report', 'My Reports'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer> }
       {renderMobileMenu}
       {renderMenu}
-      {children}
+      <Box
+        component="main"
+        sx={{ flexGrow: 1 }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }
