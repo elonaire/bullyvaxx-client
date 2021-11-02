@@ -19,7 +19,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Buy Sponsorships</Typography>
 
-                        <Form initialValues={{ form: { username: '' } }} buttonText="checkout" buttonSize="medium" submit={() => { }}>
+                        <Form initialValues={{ form: { username: '', state: '', county: '' } }} buttonText="checkout" buttonSize="medium" submit={() => { }}>
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="First Name" />
                             </FormFieldWrapper>
@@ -30,10 +30,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="email" selectOptions={['Penn']} variant="outlined" label="Select your state" />
+                                <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="state" selectOptions={['Penn']} variant="outlined" label="Select your state" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="email" selectOptions={['Penn']} variant="outlined" label="Select your county" />
+                                <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={['Penn']} variant="outlined" label="Select your county" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="email" type="number" variant="outlined" label="Number of sponsorships" />

@@ -47,7 +47,7 @@ export const FormContext = React.createContext({
 export const InputField: FunctionComponent<InputFieldProps> = (props: InputFieldProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { type, variant, label, name, size, fullWidth, color, isMultiline, isSelect, selectOptions = [] } = props;
+    const { type, variant, label, name, size, fullWidth, color, isMultiline, isSelect, selectOptions = [''] } = props;
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
