@@ -19,7 +19,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Buy Sponsorships</Typography>
 
-                        <Form initialValues={{ form: { username: '', state: '', county: '' } }} buttonText="checkout" buttonSize="medium" submit={() => { }}>
+                        <Form initialValues={{  username: '', state: '', county: '' }} buttonText="checkout" buttonSize="medium" submit={() => { }}>
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="First Name" />
                             </FormFieldWrapper>

@@ -15,13 +15,14 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import auth from '../utilities/Auth';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,6 +75,7 @@ const NavLink = styled(Link)(({ theme }) => ({
 export interface NavBarProps {
   children?: React.ReactNode;
   window?: () => Window;
+  // history?: any;
 }
 
 let drawerWidth = 240;
@@ -109,6 +111,8 @@ export default function NavBar(props: NavBarProps) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  let history = useHistory();
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -126,8 +130,12 @@ export default function NavBar(props: NavBarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+      <MenuItem onClick={handleMenuClose}><NavLink to="/dashboard/admin">My account</NavLink></MenuItem>
+      <MenuItem onClick={() => auth.logout(() => {
+        localStorage.removeItem("app_id");
+        localStorage.removeItem("user_id");
+        history.push('/');
+      })}>Logout</MenuItem>
     </Menu>
   );
 
@@ -192,7 +200,7 @@ export default function NavBar(props: NavBarProps) {
       <Toolbar />
       <Divider />
       <List>
-        {['Submit Report', 'My Reports'].map((text, index) => (
+        {['Submit Report', 'View Reports', 'Manage Content'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemText primary={text} />
           </ListItem>
@@ -244,9 +252,9 @@ export default function NavBar(props: NavBarProps) {
             <NavLink to="/sponsors">SPONSORS</NavLink>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
+          {!auth.confirmAuth() && !auth.confirmAdminAuth() && <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
             <NavLink to="/login">SIGN IN</NavLink>
-          </Box>
+          </Box>}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
@@ -262,7 +270,7 @@ export default function NavBar(props: NavBarProps) {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
-            <IconButton
+            {(auth.confirmAuth() || auth.confirmAdminAuth()) && <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -272,7 +280,7 @@ export default function NavBar(props: NavBarProps) {
               color="inherit"
             >
               <AccountCircle />
-            </IconButton>
+            </IconButton>}
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton

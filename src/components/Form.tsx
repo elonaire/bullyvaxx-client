@@ -54,13 +54,13 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
     };
 
     return (
-        type !== 'password' ? <TextField color={color} select={isSelect} rows={isMultiline ? 4 : 1} multiline={isMultiline} fullWidth={fullWidth} size={size} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange}>
+        type !== 'password' ? <TextField color={color} select={isSelect} rows={isMultiline ? 4 : 1} multiline={isMultiline} fullWidth={fullWidth} size={size} name={name} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange}>
             {isSelect && selectOptions.map((option) => (
                 <MenuItem key={option} value={option}>
                     {option}
                 </MenuItem>
             ))}
-        </TextField> : <TextField color={color} size={size} value={form[name]} fullWidth={fullWidth} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
+        </TextField> : <TextField color={color} size={size} name={name} value={form[name]} fullWidth={fullWidth} type={form['showPassword'] ? 'text' : type} label={label} variant={variant} onChange={handleFormChange} InputProps={{
             endAdornment: <InputAdornment position="end"><IconButton
                 aria-label="toggle password visibility"
                 onClick={handleFormChange}
@@ -106,13 +106,15 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
 
         if (event[type] as any === 'change') {
             const { name, value } = event[target] as any;
+            console.log(form);
+            
 
             setForm({
                 ...form,
                 [name]: value
             });
         } else {
-            setForm({ showPassword: !form.showPassword });
+            // setForm({ showPassword: !form.showPassword });
         }
     };
 

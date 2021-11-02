@@ -1,14 +1,15 @@
 import React from "react";
-import { Redirect, Route, RouteProps } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import auth from '../utilities/Auth';
 
 export interface ProtectedRouteProps {
-    component: React.ComponentType<RouteProps>;
+    component: React.FunctionComponent<any>;
     exact: boolean;
     path: string;
 }
  
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ component: Component, ...rest }) => {
-    const isAuthenticated = localStorage.getItem("user_id") === 'USER';
+const ProtectedRoute: React.FunctionComponent<ProtectedRouteProps> = ({ component: Component, ...rest }) => {
+    const isAuthenticated = auth.confirmAuth() || auth.confirmAdminAuth();
     return ( 
         <Route
       {...rest }
