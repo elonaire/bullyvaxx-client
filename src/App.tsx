@@ -49,7 +49,7 @@ function App() {
         <Router>
           <div style={{ width: '100%' }}>
             <NavBar>
-              <div style={{ marginTop: '56px' }}>
+              <div style={{ marginTop: '56px', minHeight: '60vh' }}>
                 <Switch>
                   <Route exact component={Home} path="/" />
                   <Route exact component={About} path="/about" />
@@ -61,7 +61,7 @@ function App() {
                 </Switch>
               </div>
             </NavBar>
-            <div style={{ flexGrow: 1, position: 'static', bottom: 0 }}>
+            <div style={{ flexGrow: 1, marginTop: '-50px' }}>
               <Footer />
             </div>
           </div>
