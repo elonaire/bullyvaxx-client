@@ -15,7 +15,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -65,14 +65,14 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const NavLink = styled(Link)(({ theme }) => ({
+const NavBarLink = styled(NavLink)(({ theme }) => ({
   textDecoration: 'none',
   marginRight: '3%',
   color: theme.palette.getContrastText(theme.palette.primary.main),
   display: 'inline-block',
 }));
 
-const MenuLink = styled(NavLink)(({ theme }) => ({
+const MenuLink = styled(NavBarLink)(({ theme }) => ({
   color: theme.palette.secondary.main,
 }));
 
@@ -84,7 +84,7 @@ export interface NavBarProps {
 
 let drawerWidth = 240;
 
-export interface IDrawerLink {
+export interface INavLink {
   text: string;
   link: string;
   auth: boolean;
@@ -206,16 +206,17 @@ export default function NavBar(props: NavBarProps) {
   const location = useLocation();
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
-  const DrawerLinks: IDrawerLink[] = [{text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth()}, {text: 'View Reports', link: '', auth: auth.confirmAdminAuth()}, {text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth()}].filter(link => link.auth);
+  const DrawerLinks: INavLink[] = [{text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth()}, {text: 'View Reports', link: '', auth: auth.confirmAdminAuth()}, {text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth()}].filter(link => link.auth);
+  const TopNavLinks: INavLink[] = [{text: 'HOME', link: '', auth: true}, {text: 'ABOUT', link: '/about', auth: true}, {text: 'FAQs', link: '/faq', auth: true}, {text: 'SPONSORS', link: '/sponsors', auth: true}].filter(link => link.auth);
 
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {DrawerLinks.map((text: IDrawerLink, index) => (
-          <ListItem button key={index}>
-            <MenuLink to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
+        {DrawerLinks.map((text: INavLink, index) => (
+          <ListItem style={{paddingLeft: 0, paddingRight: 0}} button key={index}>
+            <MenuLink exact={true} activeStyle={{width: '100%', padding: '10px', margin: 0}} to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
@@ -259,14 +260,11 @@ export default function NavBar(props: NavBarProps) {
             />
           </Search>
           <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
-            <NavLink to="/">HOME</NavLink>
-            <NavLink to="/about">ABOUT</NavLink>
-            <NavLink to="/faq">FAQ</NavLink>
-            <NavLink to="/sponsors">SPONSORS</NavLink>
+            {TopNavLinks.map((link, index: number) => <NavBarLink exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           {!auth.confirmAuth() && !auth.confirmAdminAuth() && <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
-            <NavLink to="/login">SIGN IN</NavLink>
+            <NavBarLink exact={true} to="/login">SIGN IN</NavBarLink>
           </Box>}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
