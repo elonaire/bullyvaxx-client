@@ -49,7 +49,7 @@ function a11yProps(index: number) {
 
 const Reports: FunctionComponent<ReportsProps> = () => {
   const [value, setValue] = React.useState(0);
-  const [uploadedVideo, setUploadedVideo] = React.useState('');
+  const [uploadedVideo] = React.useState('');
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
