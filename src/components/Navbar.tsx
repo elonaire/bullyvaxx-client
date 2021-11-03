@@ -135,6 +135,7 @@ export default function NavBar(props: NavBarProps) {
         localStorage.removeItem("app_id");
         localStorage.removeItem("user_id");
         history.push('/');
+        handleMenuClose();
       })}>Logout</MenuItem>
     </Menu>
   );
@@ -201,7 +202,7 @@ export default function NavBar(props: NavBarProps) {
       <Divider />
       <List>
         {['Submit Report', 'View Reports', 'Manage Content'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem button key={index}>
             <ListItemText primary={text} />
           </ListItem>
         ))}

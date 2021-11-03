@@ -160,33 +160,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                     </Form>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={2}>
-                    <Grid container spacing={2}>
-                        <Grid item sm={3}></Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography variant="h4">Report a Bully or threat</Typography>
-                            <Form initialValues={{ username: '', state: '', county: '' }} buttonText="sign up" buttonSize="medium" submit={() => { }}>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="state" selectOptions={['Penn']} variant="outlined" label="Select your state" />
-                                </FormFieldWrapper>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={['Penn']} variant="outlined" label="Select your county" />
-                                </FormFieldWrapper>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Username" />
-                                </FormFieldWrapper>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
-                                </FormFieldWrapper>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="email" type="password" variant="outlined" label="Password" />
-                                </FormFieldWrapper>
-                                <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="name" type="password" variant="outlined" label="Confirm Password" />
-                                </FormFieldWrapper>
-                            </Form>
-                        </Grid>
-                        <Grid item sm={3}></Grid>
-                    </Grid>
+                    
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={3}>
 
