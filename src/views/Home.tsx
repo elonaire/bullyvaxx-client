@@ -1,9 +1,10 @@
-import { Box, Typography, Tabs, Tab, styled, Grid } from "@mui/material";
+import { Box, Typography, Tabs, Tab, styled, Grid, Backdrop } from "@mui/material";
 import React, { FunctionComponent, useEffect } from "react";
 import { Carousel } from 'react-carousel-minimal';
 import { Link } from "react-router-dom";
 import Form, { InputField } from "../components/Form";
 import Axios from 'axios';
+import Loader from "react-loader-spinner";
 
 interface HomeProps {
 
@@ -121,7 +122,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                 url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
             });
 
-            console.log('res.data', res.data, response, loading);
+            // console.log('res.data', res.data, response, loading);
 
             setResponse(res.data);
 
@@ -170,6 +171,18 @@ const Home: FunctionComponent<HomeProps> = () => {
             />
 
             <Box sx={{ width: '100%' }}>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <Loader
+                    type="Puff"
+                    color="#f44336"
+                    height={100}
+                    width={100}
+                    visible={loading}
+                />
+            </Backdrop>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="scrollable">
                         <Tab label="BullyVaxx Works, Here’s Why" {...a11yProps(0)} />

@@ -55,13 +55,10 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                 data: reqBody,
             });
 
-            console.log('res.data', res.data, response, loading);
-
             setResponse(res.data);
 
             setLoading(false);
         } catch (error: any) {
-            console.log(error.response);
             setResponse(error.response);
             setLoading(false);
         }
@@ -75,13 +72,11 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                 url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
             });
 
-            console.log('res.data', res.data, response, loading);
-
             setResponse(res.data);
 
             setLoading(false);
         } catch (error: any) {
-            console.log(error.response);
+            console.log(response);
             setResponse(error.response);
             setLoading(false);
         }

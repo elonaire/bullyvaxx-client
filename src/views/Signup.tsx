@@ -7,6 +7,7 @@ import Axios from 'axios';
 import Backdrop from "@mui/material/Backdrop";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 interface SignupProps {
 }
@@ -174,7 +175,9 @@ const Signup: FunctionComponent<SignupProps> = () => {
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="confirmPassword" type="password" variant="outlined" label="Confirm Password" />
                         </FormFieldWrapper>
+                        <Typography variant="body2" color="error">{response?.data?.message}</Typography>
                     </Form>
+                    <Typography component={'p'}>If you already have an account, login <Link to="/login">here</Link>.</Typography>
                 </Grid>
                 <Grid item sm={4}></Grid>
             </Grid>

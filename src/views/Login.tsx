@@ -8,6 +8,7 @@ import Loader from 'react-loader-spinner';
 import Backdrop from '@mui/material/Backdrop';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 interface LoginProps {
     history: any;
@@ -103,6 +104,7 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                         </FormFieldWrapper>
                         <Typography variant="body2" color="error">{response?.data?.message}</Typography>
                     </Form>
+                    <Typography component={'p'}>If you do not have an account, sign up <Link to="/signup">here</Link>.</Typography>
                 </Grid>
                 <Grid item sm={4}></Grid>
             </Grid>
