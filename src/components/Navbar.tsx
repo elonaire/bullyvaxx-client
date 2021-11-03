@@ -84,6 +84,12 @@ export interface NavBarProps {
 
 let drawerWidth = 240;
 
+export interface IDrawerLink {
+  text: string;
+  link: string;
+  auth: boolean;
+}
+
 export default function NavBar(props: NavBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
@@ -134,7 +140,7 @@ export default function NavBar(props: NavBarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><MenuLink style={{color: '#000'}} to="/dashboard/admin">My account</MenuLink></MenuItem>
+      <MenuItem onClick={handleMenuClose}><MenuLink style={{ color: '#000' }} to="/dashboard/admin">My account</MenuLink></MenuItem>
       <MenuItem onClick={() => auth.logout(() => {
         localStorage.removeItem("app_id");
         localStorage.removeItem("user_id");
@@ -200,14 +206,16 @@ export default function NavBar(props: NavBarProps) {
   const location = useLocation();
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
+  const DrawerLinks: IDrawerLink[] = [{text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth()}, {text: 'View Reports', link: '', auth: auth.confirmAdminAuth()}, {text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth()}].filter(link => link.auth);
+
   const drawer = (
     <div>
       <Toolbar />
       <Divider />
       <List>
-        {['Submit Report', 'View Reports', 'Manage Content'].map((text, index) => (
+        {DrawerLinks.map((text: IDrawerLink, index) => (
           <ListItem button key={index}>
-            <ListItemText primary={text} />
+            <MenuLink to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
