@@ -12,8 +12,8 @@ const Signup: FunctionComponent<SignupProps> = () => {
     return (
         <div style={{ width: '100%', marginTop: '10%' }}>
             <Grid container spacing={2}>
-                <Grid item sm={3}></Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item sm={4}></Grid>
+                <Grid item xs={12} sm={4}>
                     <Typography variant="h4">Report a Bully or threat</Typography>
                     <Form initialValues={{ username: '', state: '', county: '' }} buttonText="sign up" buttonSize="medium" submit={() => { }}>
                         <FormFieldWrapper>
@@ -36,7 +36,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
                         </FormFieldWrapper>
                     </Form>
                 </Grid>
-                <Grid item sm={3}></Grid>
+                <Grid item sm={4}></Grid>
             </Grid>
         </div>
     );

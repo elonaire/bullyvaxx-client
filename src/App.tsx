@@ -13,6 +13,7 @@ import Reports from './views/Reports';
 import Login from './views/Login';
 import Admin from './views/Admin';
 import ProtectedRoute from './components/ProtectedRoute';
+import Signup from './views/Signup';
 
 const theme = createTheme({
   palette: {
@@ -55,9 +56,10 @@ function App() {
                   <Route exact component={About} path="/about" />
                   <Route exact component={Faq} path="/faq" />
                   <Route exact component={Sponsors} path="/sponsors" />
-                  <Route exact component={Reports} path="/dashboard/forms" />
+                  <ProtectedRoute exact component={Reports} path="/dashboard/forms" />
                   <ProtectedRoute exact component={Admin} path="/dashboard/admin" />
                   <Route exact component={Login} path="/login" />
+                  <Route exact component={Signup} path="/signup" />
                 </Switch>
               </div>
             </NavBar>

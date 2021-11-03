@@ -1,6 +1,7 @@
 import { Box, Typography, Tabs, Tab, styled, Grid } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import { Carousel } from 'react-carousel-minimal';
+import { Link } from "react-router-dom";
 import Form, { InputField } from "../components/Form";
 
 interface HomeProps {
@@ -160,7 +161,8 @@ const Home: FunctionComponent<HomeProps> = () => {
                     </Form>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={2}>
-                    
+                    <Typography variant="h3">Report a Bully or Threat: </Typography>
+                    <Typography component={'p'}>To report a bully or a threat, sign up <Link to="/signup">here</Link>. If you already have an account, login <Link to="/login">here</Link>.</Typography>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={3}>
 
