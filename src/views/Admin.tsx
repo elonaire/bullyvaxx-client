@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from "draft-js";
-import Form, { InputField } from "../components/Form";
+import Form, { InputField, SelectOption } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import Backdrop from "@mui/material/Backdrop";
@@ -21,10 +21,15 @@ interface AdminProps {
 const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
     const [editorState, setEditorState] = React.useState();
     const [content, setContent] = React.useState();
+    const [selectedPage, setSelectedPage] = React.useState('');
 
     const handleEditorStateChange = (editorState: any) => {
         setEditorState(editorState);
         setContent(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    }
+
+    const handleSelectionChange = (pageInfo: SelectOption) => {
+        setSelectedPage(pageInfo.value);
     }
 
     const [response, setResponse] = React.useState({} as any);
@@ -61,6 +66,34 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
             setLoading(false);
         }
     };
+
+    let fetchContent = async (q: {page?: string; tab?: string;}) => {
+        setLoading(true);
+        try {
+            let res = await Axios({
+                method: 'get',
+                url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
+            });
+
+            console.log('res.data', res.data, response, loading);
+
+            setResponse(res.data);
+
+            setLoading(false);
+        } catch (error: any) {
+            console.log(error.response);
+            setResponse(error.response);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let abortController = new AbortController();
+        fetchContent({page: selectedPage, tab: ''});
+        return () => { abortController.abort(); };
+        // eslint-disable-next-line
+    }, [selectedPage]);
+
     return (
         <div style={{ width: '100%', marginTop: '10%', padding: '2%' }}>
             <Backdrop
@@ -81,11 +114,11 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                     <div style={{ width: '20%' }}>
                         <Form initialValues={{ page: '', tab: '' }} buttonText="save" buttonSize="medium" submit={addContent}>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Faq'}]} variant="outlined" label="Select page" />
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectionChange={handleSelectionChange} selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Sponsors'}]} variant="outlined" label="Select page" />
                             </FormFieldWrapper>
-                            <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="tab" selectOptions={[{label: '1', value: '1'}, {label: '2', value: '2'}, {label: '3', value: '3'}, {label: '4', value: '4'}]} variant="outlined" label="Select tab" />
-                            </FormFieldWrapper>
+                            {selectedPage === 'Home' && <FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="tab" selectOptions={[{label: 'BullyVaxx works', value: '0'}, {label: 'Is your school protected?', value: '1'}, {label: 'Report a bully or threat', value: '2'}, {label: 'Message to moms', value: '3'}, {label: 'Message to bullies', value: '4'}, {label: 'Principals/school administrators', value: '5'}, {label: 'BullyVaxx Database', value: '7'}]} variant="outlined" label="Select tab" />
+                            </FormFieldWrapper>}
                         </Form>
                     </div>
                     <Editor

@@ -14,8 +14,17 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [counties, setCounties] = React.useState([] as SelectOption[]);
     const [loading, setLoading] = React.useState(false);
     const [selectedState, setSelectedState] = React.useState('');
+    const [response, setResponse] = React.useState({} as any);
+    const [selectedPage] = React.useState('Sponsors');
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
+    let url: string;
+
+    if (process.env.NODE_ENV === 'development') {
+        url = `${process.env.REACT_APP_DEV_BACKEND}`;
+    } else if (process.env.NODE_ENV === 'production') {
+        url = `${process.env.REACT_APP_PRODUCTION}`;
+    }
 
     let handleSelection = (selected: SelectOption) => {
         setSelectedState(selected.value);
@@ -83,6 +92,33 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setLoading(false);
         }
     };
+
+    let fetchContent = async (q: { page?: string; tab?: string; }) => {
+        setLoading(true);
+        try {
+            let res = await Axios({
+                method: 'get',
+                url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
+            });
+
+            console.log('res.data', res.data, response, loading);
+
+            setResponse(res.data);
+
+            setLoading(false);
+        } catch (error: any) {
+            console.log(error.response);
+            setResponse(error.response);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let abortController = new AbortController();
+        fetchContent({ page: selectedPage, tab: '' });
+        return () => { abortController.abort(); };
+        // eslint-disable-next-line
+    }, [selectedPage]);
     useEffect(() => {
         let abortController = new AbortController();
         getStates();
@@ -101,7 +137,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         <div style={{ width: '100%', marginTop: '8%' }}>
             <Grid container spacing={2}>
                 <Grid item sm={7} xs={12}>
-                    <Typography variant="h3">Our esteemed sponsors</Typography>
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>

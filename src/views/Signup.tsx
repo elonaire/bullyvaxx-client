@@ -6,9 +6,9 @@ import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import Backdrop from "@mui/material/Backdrop";
 import Loader from "react-loader-spinner";
+import { useHistory } from "react-router";
 
 interface SignupProps {
-
 }
 
 const Signup: FunctionComponent<SignupProps> = () => {
@@ -17,6 +17,8 @@ const Signup: FunctionComponent<SignupProps> = () => {
     const [counties, setCounties] = React.useState([] as SelectOption[]);
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState({} as any);
+
+    const history = useHistory();
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
 
@@ -108,6 +110,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
             setResponse(res.data);
 
             setLoading(false);
+            history.push('/login');
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);

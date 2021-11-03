@@ -1,8 +1,9 @@
 import { Box, Typography, Tabs, Tab, styled, Grid } from "@mui/material";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { Carousel } from 'react-carousel-minimal';
 import { Link } from "react-router-dom";
 import Form, { InputField } from "../components/Form";
+import Axios from 'axios';
 
 interface HomeProps {
 
@@ -97,7 +98,47 @@ const Home: FunctionComponent<HomeProps> = () => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+        setSelectedTab(`${newValue}`);
     };
+    const [response, setResponse] = React.useState({} as any);
+    const [loading, setLoading] = React.useState(false);
+    const [selectedPage] = React.useState('Home');
+    const [selectedTab, setSelectedTab] = React.useState('0');
+
+    let url: string;
+
+    if (process.env.NODE_ENV === 'development') {
+        url = `${process.env.REACT_APP_DEV_BACKEND}`;
+    } else if (process.env.NODE_ENV === 'production') {
+        url = `${process.env.REACT_APP_PRODUCTION}`;
+    }
+
+    let fetchContent = async (q: { page?: string; tab?: string; }) => {
+        setLoading(true);
+        try {
+            let res = await Axios({
+                method: 'get',
+                url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
+            });
+
+            console.log('res.data', res.data, response, loading);
+
+            setResponse(res.data);
+
+            setLoading(false);
+        } catch (error: any) {
+            console.log(error.response);
+            setResponse(error.response);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let abortController = new AbortController();
+        fetchContent({ page: selectedPage, tab: selectedTab });
+        return () => { abortController.abort(); };
+        // eslint-disable-next-line
+    }, [selectedPage, selectedTab]);
 
     return (
         <div style={{ width: '100%' }}>
@@ -149,6 +190,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                                 <source src="mov_bbb.ogg" type="video/ogg" />
                                 Your browser does not support HTML video.
                             </Video>
+                            <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                         </Grid>
                         <Grid item sm={3}></Grid>
                     </Grid>
@@ -159,22 +201,24 @@ const Home: FunctionComponent<HomeProps> = () => {
                         <InputField size="small" color="secondary" name="school_name" type="text" variant="outlined" label="School Name" />
                         <InputField size="small" color="secondary" name="zip_code" type="text" variant="outlined" label="Zip Code" />
                     </Form>
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={2}>
                     <Typography variant="h3">Report a Bully or Threat: </Typography>
                     <Typography component={'p'}>To report a bully or a threat, sign up <Link to="/signup">here</Link>. If you already have an account, login <Link to="/login">here</Link>.</Typography>
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={3}>
-
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={4}>
-
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={5}>
-
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={6}>
-
+                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </StyledTabPanel>
             </Box>
 

@@ -216,7 +216,7 @@ export default function NavBar(props: NavBarProps) {
       <List>
         {DrawerLinks.map((text: INavLink, index) => (
           <ListItem style={{paddingLeft: 0, paddingRight: 0}} button key={index}>
-            <MenuLink exact={true} activeStyle={{width: '100%', padding: '10px', margin: 0}} to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
+            <MenuLink exact={true} activeStyle={{width: '100%', padding: '10px', margin: 0, color: '#fff'}} to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
