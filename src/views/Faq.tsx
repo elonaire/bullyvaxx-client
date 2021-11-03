@@ -6,7 +6,7 @@ interface FaqProps {
  
 const Faq: FunctionComponent<FaqProps> = () => {
     return (
-        <div>
+        <div  style={{ width: '100%', marginTop: '10%' }}>
             FAQs page
         </div>
     );

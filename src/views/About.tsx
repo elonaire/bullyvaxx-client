@@ -6,7 +6,7 @@ interface AboutProps {
  
 const About: FunctionComponent<AboutProps> = () => {
     return (
-        <div>
+        <div  style={{ width: '100%', marginTop: '8%' }}>
             About page
         </div>
     );

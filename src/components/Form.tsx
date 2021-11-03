@@ -105,9 +105,6 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
 
         if (event[type] as any === 'change') {
             const { name, value } = event[target] as any;
-            console.log(form);
-            
-
             setForm({
                 ...form,
                 [name]: value

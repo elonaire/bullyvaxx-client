@@ -10,7 +10,7 @@ interface SponsorsProps {
 
 const Sponsors: FunctionComponent<SponsorsProps> = () => {
     return (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%', marginTop: '8%' }}>
             <Grid container spacing={2}>
                 <Grid item sm={7} xs={12}>
                     <Typography variant="h3">Our esteemed sponsors</Typography>
