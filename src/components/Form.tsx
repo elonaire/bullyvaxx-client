@@ -99,10 +99,9 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
     const [form, setForm] = useState(initialValues);
 
     const handleFormChange = <T,>(event: T) => {
-        console.log(event);
-
         const type = 'type' as keyof T;
         const target = 'target' as keyof T;
+        
 
         if (event[type] as any === 'change') {
             const { name, value } = event[target] as any;
@@ -114,7 +113,18 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
                 [name]: value
             });
         } else {
-            // setForm({ showPassword: !form.showPassword });
+            const { name, value } = event[target] as any;
+            if (name && value) {
+                console.log('first');
+                
+                setForm({
+                    ...form,
+                    [name]: value
+                });
+            } else {
+                setForm({ ...form, showPassword: !form.showPassword });
+            }
+            
         }
     };
 

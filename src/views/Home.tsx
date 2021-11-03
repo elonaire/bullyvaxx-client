@@ -164,7 +164,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                         <Grid item sm={3}></Grid>
                         <Grid item xs={12} sm={6}>
                             <Typography variant="h4">Report a Bully or threat</Typography>
-                            <Form initialValues={{ form: { username: '', state: '', county: '' } }} buttonText="sign up" buttonSize="medium" submit={() => { }}>
+                            <Form initialValues={{ username: '', state: '', county: '' }} buttonText="sign up" buttonSize="medium" submit={() => { }}>
                                 <FormFieldWrapper>
                                     <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="state" selectOptions={['Penn']} variant="outlined" label="Select your state" />
                                 </FormFieldWrapper>
