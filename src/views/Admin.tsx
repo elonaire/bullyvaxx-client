@@ -1,4 +1,3 @@
-import { Grid, Typography } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -7,6 +6,10 @@ import { convertToRaw } from "draft-js";
 import Form, { InputField } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
+import Backdrop from "@mui/material/Backdrop";
+import Loader from "react-loader-spinner";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 // import Utils from '../utilities/Utils';
 // import auth from '../utilities/Auth';
 // import Loader from 'react-loader-spinner';
@@ -60,6 +63,18 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
     };
     return (
         <div style={{ width: '100%', marginTop: '10%', padding: '2%' }}>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <Loader
+                type="Puff"
+                color="#f44336"
+                height={100}
+                width={100}
+                visible={loading}
+            />
+            </Backdrop>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Typography variant="h4">Edit tabs content</Typography>
