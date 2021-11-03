@@ -185,8 +185,8 @@ const Home: FunctionComponent<HomeProps> = () => {
                     <Typography variant="h3" style={{ textAlign: 'center' }}>Send us your feedback</Typography>
                     {/* <Typography variant="h4" style={{ textAlign: 'center' }}>See what people say about us</Typography> */}
                     <Grid container spacing={2}>
-                        <Grid item sm={7}></Grid>
-                        <Grid item sm={4}>
+                        <Grid item xs={12} sm={7}></Grid>
+                        <Grid item xs={12} sm={4}>
                             <FeedbackForm>
                                 <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
                                     <FormFieldWrapper>

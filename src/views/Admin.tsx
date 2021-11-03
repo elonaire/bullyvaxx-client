@@ -41,7 +41,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
     let addContent = async (reqBody: any) => {
         console.log(reqBody);
         reqBody.content = content;
-        
+
         setLoading(true);
         try {
             let res = await Axios({
@@ -53,7 +53,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
             console.log('res.data', res.data, response, loading);
 
             setResponse(res.data);
-            
+
             setLoading(false);
         } catch (error: any) {
             console.log(error.response);
@@ -68,20 +68,23 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                 open={loading}
             >
                 <Loader
-                type="Puff"
-                color="#f44336"
-                height={100}
-                width={100}
-                visible={loading}
-            />
+                    type="Puff"
+                    color="#f44336"
+                    height={100}
+                    width={100}
+                    visible={loading}
+                />
             </Backdrop>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant="h4">Edit tabs content</Typography>
+                    <Typography variant="h4">Edit website content</Typography>
                     <div style={{ width: '20%' }}>
-                        <Form initialValues={{ tab: '' }} buttonText="save" buttonSize="medium" submit={addContent}>
+                        <Form initialValues={{ page: '', tab: '' }} buttonText="save" buttonSize="medium" submit={addContent}>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="tab" selectOptions={['1', '2', '3', '4']} variant="outlined" label="Select tab" />
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Faq'}]} variant="outlined" label="Select page" />
+                            </FormFieldWrapper>
+                            <FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="tab" selectOptions={[{label: '1', value: '1'}, {label: '2', value: '2'}, {label: '3', value: '3'}, {label: '4', value: '4'}]} variant="outlined" label="Select tab" />
                             </FormFieldWrapper>
                         </Form>
                     </div>
@@ -90,7 +93,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                         // toolbarClassName="toolbarClassName"
                         // wrapperClassName="wrapperClassName"
                         // editorClassName="editorClassName"
-                        editorStyle={{border: '1px solid gray', minHeight: '400px'}}
+                        editorStyle={{ border: '1px solid gray', minHeight: '400px' }}
                         onEditorStateChange={(e: any) => handleEditorStateChange(e)}
                     />
                 </Grid>

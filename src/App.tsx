@@ -63,7 +63,7 @@ function App() {
                 </Switch>
               </div>
             </NavBar>
-            <div style={{ flexGrow: 1, marginTop: '-50px' }}>
+            <div style={{ flexGrow: 1 }}>
               <Footer />
             </div>
           </div>
