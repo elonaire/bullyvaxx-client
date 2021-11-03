@@ -32,6 +32,7 @@ interface InputFieldProps {
     isMultiline?: boolean;
     isSelect?: boolean;
     selectOptions?: SelectOption[];
+    selectionChange?: any;
 }
 
 interface RadioProps {
@@ -52,7 +53,7 @@ export interface SelectOption {
 export const InputField: FunctionComponent<InputFieldProps> = (props: InputFieldProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { type, variant, label, name, size, fullWidth, color, isMultiline, isSelect, selectOptions = [] } = props;
+    const { type, variant, label, name, size, fullWidth, color, isMultiline, isSelect, selectOptions = [], selectionChange = () => {} } = props;
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -61,7 +62,7 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
     return (
         type !== 'password' ? <TextField color={color} select={isSelect} rows={isMultiline ? 4 : 1} multiline={isMultiline} fullWidth={fullWidth} size={size} name={name} value={form[name]} type={type} label={label} variant={variant} onChange={handleFormChange}>
             {isSelect && selectOptions && selectOptions.map((option: SelectOption, index) => (
-                <MenuItem key={index} value={option.value}>
+                <MenuItem onClick={() => selectionChange(option)} key={index} value={option.value}>
                     {option.label}
                 </MenuItem>
             ))}
