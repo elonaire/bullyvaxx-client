@@ -197,7 +197,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                 </StyledTabPanel>
                 <StyledTabPanel value={value} index={1}>
                     <Typography variant="h3">Search for your school: </Typography>
-                    <Form initialValues={{ form: { username: '' } }} buttonText="Search" buttonSize="medium" submit={() => { }}>
+                    <Form initialValues={{ username: '' }} buttonText="Search" buttonSize="medium" submit={() => { }}>
                         <InputField size="small" color="secondary" name="school_name" type="text" variant="outlined" label="School Name" />
                         <InputField size="small" color="secondary" name="zip_code" type="text" variant="outlined" label="Zip Code" />
                     </Form>

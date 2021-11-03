@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
-import React, {FunctionComponent} from 'react';
-import Form, {FRadioButton, InputField} from '../components/Form';
+import React, { FunctionComponent } from 'react';
+import Form, { FRadioButton, InputField } from '../components/Form';
 
-interface ReportsProps {}
+interface ReportsProps { }
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -15,7 +16,7 @@ interface TabPanelProps {
 }
 
 function TabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props;
+  const { children, value, index, ...other } = props;
 
   return (
     <div
@@ -26,7 +27,7 @@ function TabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && (
-        <Box sx={{p: 3}}>
+        <Box sx={{ p: 3 }}>
           <Typography component={'div'}>{children}</Typography>
         </Box>
       )}
@@ -48,18 +49,74 @@ function a11yProps(index: number) {
 
 const Reports: FunctionComponent<ReportsProps> = () => {
   const [value, setValue] = React.useState(0);
+  const [uploadedVideo, setUploadedVideo] = React.useState('');
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
+  // let url: string;
+
+  // if (process.env.NODE_ENV === 'development') {
+  //   url = `${process.env.REACT_APP_DEV_BACKEND}`;
+  // } else if (process.env.NODE_ENV === 'production') {
+  //   url = `${process.env.REACT_APP_PRODUCTION}`;
+  // }
+
+  let uploadVideo = async (reqBody: any) => {
+    console.log('reqBody', reqBody);
+    
+
+    // setLoading(true);
+    // try {
+    //     let res = await Axios({
+    //         method: 'post',
+    //         url: `${url + '/content/create'}`,
+    //         data: reqBody,
+    //     });
+
+    //     console.log('res.data', res.data, response, loading);
+
+    //     setResponse(res.data);
+
+    //     setLoading(false);
+    // } catch (error: any) {
+    //     console.log(error.response);
+    //     setResponse(error.response);
+    //     setLoading(false);
+    // }
+  };
+
   return (
-    <div style={{width: '100%'}}>
-      <Box sx={{width: '100%', p: 2}}>
+    <div style={{ width: '100%' }}>
+      {!uploadedVideo && <Box sx={{ width: '100%', p: 2 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={7}>
+            <Typography variant="h3">Start by uploading a simple "selfie" video using the statement below:</Typography>
+            <p>My username is ______________. Today’s date is ___________.
+              NOTE: If you are submitting this information as a trustee for another individual who chooses to not be identified, please add the statement below to your video: I am submitting this information as a trustee.
+
+              Upload an Identification Video</p>
+            <Form initialValues={{ selfie_video: '' }} buttonText="upload" buttonSize="medium" submit={uploadVideo}>
+              <InputField size="small" color="secondary" name="selfie_video" type="file" variant="outlined" />
+            </Form>
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <Typography style={{ textAlign: 'center' }} variant="h4">Guidelines</Typography>
+            <Typography style={{ textAlign: 'center' }} variant="h5">All videos must conform to these rules:</Typography>
+            <ul>
+              <li>All videos must be made at arm’s length from straight ahead clearly showing the person’s face and head.</li>
+              <li>No sun glasses, caps or anything that will obstruct the view can be worn.</li>
+              <li>The audio must be clear and easy to understand.</li>
+            </ul>
+          </Grid>
+        </Grid>
+      </Box>}
+      {uploadedVideo && <Box sx={{ width: '100%', p: 2 }}>
         <Typography variant="h3">
           What type of information are you submitting?
         </Typography>
-        <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -77,10 +134,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={0}>
           <Typography variant="h4">THREAT AGAINST A SCHOOL</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report a school shooter or any type threat against a school
             complete the form below and click SUBMIT REPORT. The report will
@@ -207,10 +264,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={1}>
           <Typography variant="h4">MASS ATTACK THREAT</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report a mass attack, terrorism, workplace attack or any other
             public mass attack complete the form below and click SUBMIT REPORT.
@@ -308,10 +365,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={2}>
           <Typography variant="h4">WEAPONS IN SCHOOL</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report a WEAPON IN THE SCHOOL complete the form below and click
             SUBMIT REPORT. The report will automatically be sent by email to the
@@ -440,10 +497,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={3}>
           <Typography variant="h4">BULLYING</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report BULLYING IN THE SCHOOL complete the form below and click
             SUBMIT REPORT. The report will automatically be sent by email to the
@@ -611,10 +668,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={4}>
           <Typography variant="h4">CYBERBULLYING</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report BULLYING IN THE SCHOOL complete the form below and click
             SUBMIT REPORT. The report will automatically be sent by email to the
@@ -783,10 +840,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={5}>
           <Typography variant="h4">OTHER THREAT</Typography>
           <Form
-            initialValues={{form: {username: ''}}}
+            initialValues={{ form: { username: '' } }}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => {}}
+            submit={() => { }}
           >
             To report any OTHER THREAT complete the form below and click SUBMIT
             REPORT. The report will automatically be sent by email to the proper
@@ -891,7 +948,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             <br />
           </Form>
         </StyledTabPanel>
-      </Box>
+      </Box>}
     </div>
   );
 };
