@@ -101,7 +101,7 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="password" type="password" variant="outlined" label="Confirm Password" />
                         </FormFieldWrapper>
-                        <Typography variant="body2" color="error">{response?.data?.message}!</Typography>
+                        <Typography variant="body2" color="error">{response?.data?.message}</Typography>
                     </Form>
                 </Grid>
                 <Grid item sm={4}></Grid>
