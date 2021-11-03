@@ -72,6 +72,10 @@ const NavLink = styled(Link)(({ theme }) => ({
   display: 'inline-block',
 }));
 
+const MenuLink = styled(NavLink)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+}));
+
 export interface NavBarProps {
   children?: React.ReactNode;
   window?: () => Window;
@@ -130,7 +134,7 @@ export default function NavBar(props: NavBarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><NavLink to="/dashboard/admin">My account</NavLink></MenuItem>
+      <MenuItem onClick={handleMenuClose}><MenuLink style={{color: '#000'}} to="/dashboard/admin">My account</MenuLink></MenuItem>
       <MenuItem onClick={() => auth.logout(() => {
         localStorage.removeItem("app_id");
         localStorage.removeItem("user_id");

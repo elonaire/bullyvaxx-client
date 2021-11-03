@@ -55,7 +55,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
 
   return (
     <div style={{width: '100%'}}>
-      <Box sx={{width: '100%'}}>
+      <Box sx={{width: '100%', p: 2}}>
         <Typography variant="h3">
           What type of information are you submitting?
         </Typography>
