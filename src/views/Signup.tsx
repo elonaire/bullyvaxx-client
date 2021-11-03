@@ -160,7 +160,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
                             <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                         </FormFieldWrapper>
                         <FormFieldWrapper>
-                            <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Username" />
+                            <InputField size="small" color="secondary" fullWidth={true} name="username" type="text" variant="outlined" label="Username" />
                         </FormFieldWrapper>
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
