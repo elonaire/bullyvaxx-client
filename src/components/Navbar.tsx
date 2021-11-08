@@ -140,7 +140,7 @@ export default function NavBar(props: NavBarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><MenuLink style={{ color: '#000' }} to={auth.confirmAdminAuth() ? '/dashboard/admin' : '/dashboard/forms'}>My account</MenuLink></MenuItem>
+      <MenuItem onClick={handleMenuClose}><MenuLink activeStyle={{background: 'transparent'}} style={{ color: '#000' }} to={auth.confirmAdminAuth() ? '/dashboard/admin' : '/dashboard/forms'}>My account</MenuLink></MenuItem>
       <MenuItem onClick={() => auth.logout(() => {
         localStorage.removeItem("app_id");
         localStorage.removeItem("user_id");

@@ -79,10 +79,6 @@ const Home: FunctionComponent<HomeProps> = () => {
         {
             image: 'banner.jpeg',
             caption: 'Important “Vaccines” Have Been Developed; One for the Coronavirus Pandemic and One for the Bullying Epidemic'
-        },
-        {
-            image: 'banner.jpeg',
-            caption: 'Our educational system has been defeated by school shooters and bullies.'
         }
     ];
 
