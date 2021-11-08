@@ -260,11 +260,11 @@ export default function NavBar(props: NavBarProps) {
             />
           </Search>
           <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
-            {TopNavLinks.map((link, index: number) => <NavBarLink exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
+            {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{clipPath: `polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%)`, padding: '2%'}} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           {!auth.confirmAuth() && !auth.confirmAdminAuth() && <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
-            <NavBarLink exact={true} to="/login">SIGN IN</NavBarLink>
+            <NavBarLink activeStyle={{background: 'transparent'}} exact={true} to="/login">SIGN IN</NavBarLink>
           </Box>}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
