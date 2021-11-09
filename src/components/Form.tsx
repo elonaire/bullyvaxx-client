@@ -140,7 +140,7 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
                 {children}
             </FormContext.Provider>
 
-            <Button variant="contained" size={buttonSize} color="secondary" onClick={() => submit(form)}>{buttonText}</Button>
+            <Button variant="contained" style={{marginBottom: '2%'}} size={buttonSize} color="secondary" onClick={() => submit(form)}>{buttonText}</Button>
         </form>
     );
 }

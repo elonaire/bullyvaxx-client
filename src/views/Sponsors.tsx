@@ -4,6 +4,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import Form, { InputField, SelectOption } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
+import { PayPalButton } from "react-paypal-button-v2";
 
 interface SponsorsProps {
 
@@ -16,6 +17,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [selectedState, setSelectedState] = React.useState('');
     const [response, setResponse] = React.useState({} as any);
     const [selectedPage] = React.useState('Sponsors');
+    const [canCheckout, setCanCheckout] = React.useState(false);
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -133,6 +135,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         // eslint-disable-next-line
     }, [selectedState]);
 
+    let buySponsorship = (form: any) => {
+        setCanCheckout(true);
+    };
+
     return (
         <div style={{ width: '100%', marginTop: '8%' }}>
             <Grid container spacing={2}>
@@ -143,12 +149,12 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Buy Sponsorships</Typography>
 
-                        <Form initialValues={{ username: '', state: '', county: '' }} buttonText="checkout" buttonSize="medium" submit={() => { }}>
+                        <Form initialValues={{ first_name: '', last_name: '', state: '', county: '', email: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={buySponsorship}>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="First Name" />
+                                <InputField size="small" color="secondary" fullWidth={true} name="first_name" type="text" variant="outlined" label="First Name" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Last Name" />
+                                <InputField size="small" color="secondary" fullWidth={true} name="last_name" type="text" variant="outlined" label="Last Name" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
@@ -160,9 +166,31 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="email" type="number" variant="outlined" label="Number of sponsorships" />
+                                <InputField size="small" color="secondary" fullWidth={true} name="school_name"  variant="outlined" label="Name of School" />
+                            </FormFieldWrapper>
+                            <FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code"  variant="outlined" label="Zip Code of School" />
+                            </FormFieldWrapper>
+                            <FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
                             </FormFieldWrapper>
                         </Form>
+                        {canCheckout && <PayPalButton
+                            amount="0.01"
+                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                            onSuccess={() => {
+                                alert("Transaction completed by Elon");
+
+                                // OPTIONAL: Call your server to save the transaction
+                                // return fetch("/paypal-transaction-complete", {
+                                //     method: "post",
+                                //     body: JSON.stringify({
+                                //         orderID: data.orderID
+                                //     })
+                                // });
+                            }}
+                            options={{clientId: 'sb'}}
+                        />}
                     </Box>
                 </Grid>
             </Grid>
