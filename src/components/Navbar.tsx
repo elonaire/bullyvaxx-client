@@ -23,8 +23,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useLocation } from 'react-router-dom';
 import auth from '../utilities/Auth';
-import { Fab, useScrollTrigger, Zoom } from '@mui/material';
+import { Button, Fab, useScrollTrigger, Zoom } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -149,11 +150,13 @@ export default function NavBar(props: NavBarProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+  const [navMoreEl, setNavMoreEl] = React.useState<null | HTMLElement>(null);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMoreMenuOpen = Boolean(navMoreEl);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -176,6 +179,14 @@ export default function NavBar(props: NavBarProps) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleMoreMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setNavMoreEl(event.currentTarget);
+  }
+
+  const handleMoreMenuClose = () => {
+    setNavMoreEl(null);
+  }
+
   let history = useHistory();
 
   const menuId = 'primary-search-account-menu';
@@ -195,7 +206,7 @@ export default function NavBar(props: NavBarProps) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}><MenuLink activeStyle={{background: 'transparent'}} style={{ color: '#000' }} to={auth.confirmAdminAuth() ? '/dashboard/admin' : '/dashboard/forms'}>My account</MenuLink></MenuItem>
+      <MenuItem onClick={handleMenuClose}><MenuLink activeStyle={{ background: 'transparent' }} style={{ color: '#000' }} to={auth.confirmAdminAuth() ? '/dashboard/admin' : '/dashboard/forms'}>My account</MenuLink></MenuItem>
       <MenuItem onClick={() => auth.logout(() => {
         localStorage.removeItem("app_id");
         localStorage.removeItem("user_id");
@@ -261,8 +272,9 @@ export default function NavBar(props: NavBarProps) {
   const location = useLocation();
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
-  const DrawerLinks: INavLink[] = [{text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth()}, {text: 'View Reports', link: '', auth: auth.confirmAdminAuth()}, {text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth()}].filter(link => link.auth);
-  const TopNavLinks: INavLink[] = [{text: 'HOME', link: '', auth: true}, {text: 'ABOUT', link: '/about', auth: true}, {text: 'FAQs', link: '/faq', auth: true}, {text: 'SPONSORS', link: '/sponsors', auth: true}].filter(link => link.auth);
+  const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'View Reports', link: '', auth: auth.confirmAdminAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
+  const TopNavLinks: INavLink[] = [{ text: 'HOME', link: '', auth: true }, { text: 'SPONSOR A SCHOOL', link: '/sponsors', auth: true }].filter(link => link.auth);
+  const TopNavMoreLinks: INavLink[] = [{ text: 'ABOUT US', link: '/about', auth: true }, { text: 'FAQs', link: '/faq', auth: true }, { text: 'MESSAGE TO MOMS', link: '/moms', auth: true }, { text: 'MESSAGE TO BULLIES', link: '/bullies', auth: true }].filter(link => link.auth);
 
   const drawer = (
     <div>
@@ -270,8 +282,8 @@ export default function NavBar(props: NavBarProps) {
       <Divider />
       <List>
         {DrawerLinks.map((text: INavLink, index) => (
-          <ListItem style={{paddingLeft: 0, paddingRight: 0}} button key={index}>
-            <MenuLink exact={true} activeStyle={{width: '100%', padding: '10px', margin: 0, color: '#fff'}} to={`/dashboard/${text.link}`}><ListItemText primary={text.text} /></MenuLink>
+          <ListItem style={{ paddingLeft: 0, paddingRight: 0 }} button key={index}>
+            <MenuLink style={{width: '100%'}} exact={true} activeStyle={{ width: '100%', padding: '10px', margin: 0, color: '#fff' }} to={`/dashboard/${text.link}`}><ListItemText style={{width: '100%'}} primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
@@ -283,52 +295,65 @@ export default function NavBar(props: NavBarProps) {
   return (
     <React.Fragment>
       <ElevationScroll {...props}>
-      <AppBar position="sticky" sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
-      }} color="secondary" elevation={0}>
-        <Toolbar id="back-to-top-anchor">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { lg: 'none', md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            BULLYVAXX
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
-            {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{clipPath: `polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%)`, padding: '2%'}} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
-          </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          {!auth.confirmAuth() && !auth.confirmAdminAuth() && <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
-            <NavBarLink activeStyle={{background: 'transparent'}} exact={true} to="/login">SIGN IN</NavBarLink>
-          </Box>}
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <AppBar position="sticky" sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }} color="secondary" elevation={0}>
+          <Toolbar id="back-to-top-anchor">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { lg: 'none', md: 'none' } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              BULLYVAXX
+            </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
+              {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{ clipPath: `polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%)`, padding: '2%' }} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
+              <NavBarLink onClick={handleMoreMenuOpen} to="#" activeStyle={{ background: 'transparent' }}>MORE <KeyboardArrowDownIcon style={{ position: 'absolute' }} /></NavBarLink>
+              <Menu
+                id="menu-appbar"
+                anchorEl={navMoreEl}
+                // getContentAnchorEl={null}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "bottom", horizontal: "right" }}
+                open={isMoreMenuOpen}
+                onClose={handleMoreMenuClose}
+                keepMounted
+              >
+                {TopNavMoreLinks.map((link, index) => <MenuItem style={{width: '100%'}} key={index} onClick={handleMoreMenuClose}><MenuLink activeStyle={{ background: 'transparent' }} style={{ color: '#000', width: '100%' }} to={link?.link}>{link?.text}</MenuLink></MenuItem>)}
+              </Menu>
+            </Box>
+            <Box sx={{ flexGrow: 1 }} />
+            {!auth.confirmAuth() && !auth.confirmAdminAuth() && <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '150px' } }}>
+              <NavBarLink activeStyle={{ background: 'transparent' }} exact={true} to="/login"><Button variant="outlined">SIGN IN</Button></NavBarLink>
+            </Box>}
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
             </IconButton> */}
-            {/* <IconButton
+              {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
@@ -337,32 +362,32 @@ export default function NavBar(props: NavBarProps) {
                 <NotificationsIcon />
               </Badge>
             </IconButton> */}
-            {(auth.confirmAuth() || auth.confirmAdminAuth()) && <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>}
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
+              {(auth.confirmAuth() || auth.confirmAdminAuth()) && <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>}
+            </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
       </ElevationScroll>
       <Box component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}

@@ -48,7 +48,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <div style={{ width: '100%' }}>
+          <div style={{ width: '100%', background: '#FDFEFB' }}>
             <NavBar>
               <div style={{ minHeight: '50vh' }}>
                 <Switch>
