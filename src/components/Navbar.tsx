@@ -23,6 +23,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useLocation } from 'react-router-dom';
 import auth from '../utilities/Auth';
+import { Fab, useScrollTrigger, Zoom } from '@mui/material';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 export const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -77,7 +79,7 @@ const MenuLink = styled(NavBarLink)(({ theme }) => ({
 }));
 
 export interface NavBarProps {
-  children?: React.ReactNode;
+  children: React.ReactElement;
   window?: () => Window;
   // history?: any;
 }
@@ -88,6 +90,59 @@ export interface INavLink {
   text: string;
   link: string;
   auth: boolean;
+}
+
+function ElevationScroll(props: NavBarProps) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+    target: window ? window() : undefined,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
+
+function ScrollTop(props: NavBarProps) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const anchor = (
+      (event.target as HTMLDivElement).ownerDocument || document
+    ).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
+  return (
+    <Zoom in={trigger}>
+      <Box
+        onClick={handleClick}
+        role="presentation"
+        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+      >
+        {children}
+      </Box>
+    </Zoom>
+  );
 }
 
 export default function NavBar(props: NavBarProps) {
@@ -226,12 +281,13 @@ export default function NavBar(props: NavBarProps) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{
+    <React.Fragment>
+      <ElevationScroll {...props}>
+      <AppBar position="sticky" sx={{
         width: { sm: `calc(100% - ${drawerWidth}px)` },
         ml: { sm: `${drawerWidth}px` },
       }} color="secondary" elevation={0}>
-        <Toolbar>
+        <Toolbar id="back-to-top-anchor">
           <IconButton
             size="large"
             edge="start"
@@ -307,6 +363,7 @@ export default function NavBar(props: NavBarProps) {
           </Box>
         </Toolbar>
       </AppBar>
+      </ElevationScroll>
       <Box component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders">
@@ -345,6 +402,11 @@ export default function NavBar(props: NavBarProps) {
       >
         {children}
       </Box>
-    </Box>
+      <ScrollTop {...props}>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
+    </React.Fragment>
   );
 }

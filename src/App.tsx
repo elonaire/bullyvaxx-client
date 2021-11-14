@@ -50,7 +50,7 @@ function App() {
         <Router>
           <div style={{ width: '100%' }}>
             <NavBar>
-              <div style={{ marginTop: '56px', minHeight: '50vh' }}>
+              <div style={{ minHeight: '50vh' }}>
                 <Switch>
                   <Route exact component={Home} path="/" />
                   <Route exact component={About} path="/about" />
