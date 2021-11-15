@@ -25,17 +25,16 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `'Rokkitt', serif`,
+    fontFamily: `'Padauk', sans-serif`,
     // fontSize: 16,
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
-          font-family: 'Rokkitt', serif;
+          font-family: 'Padauk', sans-serif;
           font-style: normal;
           font-weight: 400;
-          src: url(https://fonts.googleapis.com/css2?family=Rokkitt&display=swap);
         }
       `,
     },
