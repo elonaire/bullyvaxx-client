@@ -423,7 +423,7 @@ export default function NavBar(props: NavBarProps) {
       {renderMenu}
       <Box
         component="main"
-        sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` }, marginLeft: `${drawerWidth}px` }}
       >
         {children}
       </Box>
