@@ -46,7 +46,7 @@ const MessageToBullies: FunctionComponent<MessageToBulliesProps> = () => {
     }, [selectedPage]);
 
     return (
-        <div  style={{ width: '100%', marginTop: '10%' }}>
+        <div  style={{ width: '100%' }}>
             <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
         </div>
     );

@@ -46,7 +46,7 @@ const About: FunctionComponent<AboutProps> = () => {
     }, [selectedPage]);
     
     return (
-        <div  style={{ width: '100%', marginTop: '8%' }}>
+        <div  style={{ width: '100%'}}>
             <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
         </div>
     );
