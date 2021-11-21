@@ -1,8 +1,13 @@
-import { Box, Typography, styled, Grid, Backdrop } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import Form, { InputField } from "../components/Form";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import styled from "@mui/material/styles/styled";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 interface HomeProps {
 
@@ -72,6 +77,9 @@ const Home: FunctionComponent<HomeProps> = () => {
                                 Your browser does not support HTML video.
                             </Video>
                             <Typography>Is your children's school protected by BullyVaxx? Click <Link to="/sponsors">HERE</Link> to see</Typography>
+                            <div style={{textAlign: 'center', marginTop: '4%'}}>
+                                <Link to="/login" style={{ textDecoration: 'none' }}><Button color="primary" size="large" variant="outlined">submit bully report</Button></Link>
+                            </div>
                         </Box>
                     </Grid>
                     <Grid item sm={2}></Grid>
