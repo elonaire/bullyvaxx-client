@@ -38,6 +38,7 @@ interface InputFieldProps {
 interface RadioProps {
     name: string;
     options: any[];
+    selectionChange?: any;
 }
 
 export const FormContext = React.createContext({
@@ -82,7 +83,7 @@ export const InputField: FunctionComponent<InputFieldProps> = (props: InputField
 export const FRadioButton: FunctionComponent<RadioProps> = (props: RadioProps) => {
     const formContext = useContext(FormContext);
     const { form, handleFormChange } = formContext;
-    const { name, options = [] } = props;
+    const { name, options = [], selectionChange = () => {} } = props;
 
     return (
         <FormControl component="fieldset">
@@ -93,7 +94,7 @@ export const FRadioButton: FunctionComponent<RadioProps> = (props: RadioProps) =
                 value={form[name]}
                 onChange={handleFormChange}
             >
-                {options.map((option, i) => <FormControlLabel key={i} value={option} control={<Radio />} label={option} />)}
+                {options.map((option, i) => <FormControlLabel key={i} onClick={() => selectionChange(option)} value={option} control={<Radio />} label={option} />)}
             </RadioGroup>
         </FormControl>
     );

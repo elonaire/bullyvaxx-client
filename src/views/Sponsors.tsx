@@ -1,28 +1,15 @@
-import { Autocomplete, Grid, Typography } from "@mui/material";
+import { Autocomplete, Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FunctionComponent, useEffect } from "react";
-import Form, { InputField, SelectOption } from "../components/Form";
+import Form, { FRadioButton, InputField, SelectOption } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
-import { Search, SearchIconWrapper, StyledInputBase } from "../components/Navbar";
 import SearchIcon from '@mui/icons-material/Search';
-import styled from "@emotion/styled";
 
 interface SponsorsProps {
 
 }
-
-export const SearchSchool = styled(StyledInputBase)(({ theme }) => ({
-    color: theme.palette.secondary.main,
-    width: '100%'
-}));
-
-export const SearchSchoolWrapper = styled(Search)(({ theme }) => ({
-    color: theme.palette.secondary.main,
-    border: `solid ${theme.palette.secondary.main} 2px`,
-    borderRadius: '3px'
-}));
 
 const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [states, setStates] = React.useState([] as SelectOption[]);
@@ -32,6 +19,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [response, setResponse] = React.useState({} as any);
     const [selectedPage] = React.useState('Sponsors');
     const [canCheckout, setCanCheckout] = React.useState(false);
+    const [sponsorType, setSponsorType] = React.useState('Individual');
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -44,6 +32,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
 
     let handleSelection = (selected: SelectOption) => {
         setSelectedState(selected.value);
+    };
+
+    let handleSponsorTypeSelection = (selected: string) => {
+        setSponsorType(selected);
     };
 
     let getStates = async () => {
@@ -161,23 +153,28 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                         <Grid container spacing={2}>
                             <Grid item sm={3}></Grid>
                             <Grid item sm={6} xs={12}>
-                            <Typography style={{textAlign: 'center'}} variant="h5">Confirm school sponsorship</Typography>
+                                <Typography style={{ textAlign: 'center' }} variant="h5">Confirm school sponsorship</Typography>
                                 <Autocomplete
                                     freeSolo
                                     id="free-solo-2-demo"
                                     disableClearable
                                     options={[].map((option: any) => option.title)}
                                     renderInput={(params: any) => (
-                                        <SearchSchoolWrapper>
-                                            <SearchIconWrapper>
-                                                <SearchIcon />
-                                            </SearchIconWrapper>
-                                            <SearchSchool
-                                                {...params}
-                                                placeholder="School Name or Zip Code…"
-                                                inputProps={{ ...params.InputProps, type: 'search', }}
-                                            />
-                                        </SearchSchoolWrapper>
+                                        <TextField
+                                            {...params}
+                                            InputProps={{
+                                                ...params.InputProps,
+                                                type: 'search',
+                                                placeholder: 'School Name or Zip Code…',
+                                                size: 'small',
+                                                startAdornment: (
+                                                    <InputAdornment position="start">
+                                                        <SearchIcon />
+                                                    </InputAdornment>
+                                                ),
+                                                color: 'secondary'
+                                            }}
+                                        />
                                     )}
                                 />
 
@@ -191,13 +188,19 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Buy Sponsorships</Typography>
 
-                        <Form initialValues={{ first_name: '', last_name: '', state: '', county: '', email: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={buySponsorship}>
+                        <Form initialValues={{ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={buySponsorship}>
                             <FormFieldWrapper>
+                                Sponsor type:  <br /><FRadioButton selectionChange={handleSponsorTypeSelection} name="type" options={['Individual', 'Entity']} />
+                            </FormFieldWrapper>
+                            {sponsorType === 'Individual' && <div><FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="first_name" type="text" variant="outlined" label="First Name" />
                             </FormFieldWrapper>
-                            <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="last_name" type="text" variant="outlined" label="Last Name" />
-                            </FormFieldWrapper>
+                                <FormFieldWrapper>
+                                    <InputField size="small" color="secondary" fullWidth={true} name="last_name" type="text" variant="outlined" label="Last Name" />
+                                </FormFieldWrapper></div>}
+                            {sponsorType === 'Entity' && <FormFieldWrapper>
+                                    <InputField size="small" color="secondary" fullWidth={true} name="entity_name" type="text" variant="outlined" label="Entity Name" />
+                                </FormFieldWrapper>}
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
                             </FormFieldWrapper>

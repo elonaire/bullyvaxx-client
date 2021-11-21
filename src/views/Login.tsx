@@ -27,7 +27,6 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
     }
 
     let login = async (reqBody: any) => {
-        console.log(reqBody);
 
         setLoading(true);
         try {
@@ -37,13 +36,9 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                 data: reqBody,
             });
 
-            console.log('res.data', res.data);
-
             setResponse(res.data);
             // alert('Authentication successful!');
             let userRole;
-            // let token;
-            let userId: string;
 
             if (res.data && res.data.access_token) {
                 localStorage.setItem('app_id', res.data.access_token);
@@ -54,9 +49,6 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                 userRole = decodedToken.role;
                 localStorage.setItem('user_id', userRole);
                 // token = localStorage.getItem("JWTAUTH");
-                userId = decodedToken.sub;
-
-                console.log('userRole', userRole, userId, response, loading);
             }
 
             setLoading(false);
