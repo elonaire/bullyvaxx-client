@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from 'draftjs-to-html';
-import { convertToRaw } from "draft-js";
+import { ContentState, convertToRaw, EditorState } from "draft-js";
 import Form, { InputField, SelectOption } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 // import Utils from '../utilities/Utils';
 // import auth from '../utilities/Auth';
 // import Loader from 'react-loader-spinner';
+import htmlToDraft from 'html-to-draftjs';
 
 interface AdminProps {
     // history?: any;
@@ -73,6 +74,15 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
             });
 
             setResponse(res.data);
+            // setEditorState();
+            // console.log('toDraft', convertToRaw());
+            const contentBlock = htmlToDraft(res.data?.content)
+            if (contentBlock) {
+                const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+                const editorState = EditorState.createWithContent(contentState) as any;
+                setEditorState(editorState)
+              }
+            
 
             setLoading(false);
         } catch (error: any) {

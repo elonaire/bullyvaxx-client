@@ -118,8 +118,6 @@ const Form: FunctionComponent<FormProps> = (props: FormProps) => {
         } else {
             const { name, value } = event[target] as any;
             if (name && value) {
-                console.log('first');
-                
                 setForm({
                     ...form,
                     [name]: value
