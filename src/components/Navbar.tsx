@@ -283,7 +283,7 @@ export default function NavBar(props: NavBarProps) {
       <List>
         {DrawerLinks.map((text: INavLink, index) => (
           <ListItem style={{ paddingLeft: 0, paddingRight: 0 }} button key={index}>
-            <MenuLink style={{width: '100%'}} exact={true} activeStyle={{ width: '100%', padding: '10px', margin: 0, color: '#fff' }} to={`/dashboard/${text.link}`}><ListItemText style={{width: '100%'}} primary={text.text} /></MenuLink>
+            <MenuLink style={{width: '100%'}} exact={true} activeStyle={{ width: '100%', margin: 0 }} to={`/dashboard/${text.link}`}><ListItemText style={{width: '100%'}} primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
