@@ -52,7 +52,7 @@ const Home: FunctionComponent<HomeProps> = () => {
                 />
             </Backdrop>
 
-            <Box component={'div'} sx={{ width: '100%', position: 'relative' }}>
+            <Box component={'div'} sx={{ width: '100%', position: 'relative', minHeight: '40vh' }}>
                 <img style={{ display: 'block', opacity: 0.7, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} alt="banner" src={'banner.jpeg'} />
                 <div style={{ position: 'absolute', zIndex: 300, top: 0 }}>
                     <Typography variant="h3" style={{ textAlign: 'center', fontFamily: `'Rampart One', cursive`, }}>BULLYVAXX</Typography>
