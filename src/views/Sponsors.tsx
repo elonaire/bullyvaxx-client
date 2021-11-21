@@ -6,6 +6,7 @@ import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from "react-router-dom";
 
 interface SponsorsProps {
 
@@ -20,6 +21,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [selectedPage] = React.useState('Sponsors');
     const [canCheckout, setCanCheckout] = React.useState(false);
     const [sponsorType, setSponsorType] = React.useState('Individual');
+    const [userDetails, setUserDetails] = React.useState({} as any);
+    const [sponsorshipPrice] = React.useState(84);
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -121,6 +124,28 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         }
     };
 
+    let createUser = async (reqBody: any) => {
+        setUserDetails(reqBody);
+
+        setLoading(true);
+        try {
+            let res = await Axios({
+                method: 'post',
+                url: `${url + '/users/create-user'}`,
+                data: reqBody,
+            });
+
+            setResponse(res.data);
+            setCanCheckout(true);
+
+            setLoading(false);
+        } catch (error: any) {
+            console.log(error.response);
+            setResponse(error.response);
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         let abortController = new AbortController();
         fetchContent({ page: selectedPage, tab: '' });
@@ -141,8 +166,9 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         // eslint-disable-next-line
     }, [selectedState]);
 
-    let buySponsorship = (form: any) => {
-        setCanCheckout(true);
+    let buySponsorship = (userInfo: any) => {
+        console.log('userInfo', userInfo);
+
     };
 
     return (
@@ -188,7 +214,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Buy Sponsorships</Typography>
 
-                        <Form initialValues={{ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={buySponsorship}>
+                        {!canCheckout && <Form initialValues={{ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={createUser}>
                             <FormFieldWrapper>
                                 Sponsor type:  <br /><FRadioButton selectionChange={handleSponsorTypeSelection} name="type" options={['Individual', 'Entity']} />
                             </FormFieldWrapper>
@@ -199,8 +225,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                     <InputField size="small" color="secondary" fullWidth={true} name="last_name" type="text" variant="outlined" label="Last Name" />
                                 </FormFieldWrapper></div>}
                             {sponsorType === 'Entity' && <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="entity_name" type="text" variant="outlined" label="Entity Name" />
-                                </FormFieldWrapper>}
+                                <InputField size="small" color="secondary" fullWidth={true} name="entity_name" type="text" variant="outlined" label="Entity Name" />
+                            </FormFieldWrapper>}
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
                             </FormFieldWrapper>
@@ -219,23 +245,17 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
                             </FormFieldWrapper>
-                        </Form>
-                        {canCheckout && <PayPalButton
-                            amount="0.01"
-                            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                            onSuccess={() => {
-                                alert("Transaction completed by Elon");
-
-                                // OPTIONAL: Call your server to save the transaction
-                                // return fetch("/paypal-transaction-complete", {
-                                //     method: "post",
-                                //     body: JSON.stringify({
-                                //         orderID: data.orderID
-                                //     })
-                                // });
-                            }}
-                            options={{ clientId: 'sb' }}
-                        />}
+                        </Form>}
+                        {canCheckout && <div>
+                            <Link  onClick={() => setCanCheckout(false)} to="#">Back</Link>
+                            <Typography variant="h5">Total: ${sponsorshipPrice * userDetails?.quantity}</Typography>
+                            <PayPalButton
+                                amount={sponsorshipPrice * userDetails?.quantity}
+                                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                                onSuccess={() => buySponsorship(response)}
+                                options={{ clientId: 'sb' }}
+                            />
+                        </div>}
                     </Box>
                 </Grid>
             </Grid>
