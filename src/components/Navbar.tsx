@@ -4,7 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 // import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -15,7 +14,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -283,7 +282,7 @@ export default function NavBar(props: NavBarProps) {
       <List>
         {DrawerLinks.map((text: INavLink, index) => (
           <ListItem style={{ paddingLeft: 0, paddingRight: 0 }} button key={index}>
-            <MenuLink style={{width: '100%'}} exact={true} activeStyle={{ width: '100%', margin: 0 }} to={`/dashboard/${text.link}`}><ListItemText style={{width: '100%'}} primary={text.text} /></MenuLink>
+            <MenuLink style={{ width: '100%' }} exact={true} activeStyle={{ width: '100%', margin: 0 }} to={`/dashboard/${text.link}`}><ListItemText style={{ width: '100%' }} primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
@@ -310,14 +309,10 @@ export default function NavBar(props: NavBarProps) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
-            >
-              BULLYVAXX
-            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Link to="/"><img style={{ width: '70px', marginLeft: 'auto', marginRight: 'auto' }} alt="logo" src={'logo.png'} /></Link>
+            </Box>
+
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -340,7 +335,7 @@ export default function NavBar(props: NavBarProps) {
                 onClose={handleMoreMenuClose}
                 keepMounted
               >
-                {TopNavMoreLinks.map((link, index) => <MenuItem style={{width: '100%'}} key={index} onClick={handleMoreMenuClose}><MenuLink activeStyle={{ background: 'transparent' }} style={{ color: '#000', width: '100%' }} to={link?.link}>{link?.text}</MenuLink></MenuItem>)}
+                {TopNavMoreLinks.map((link, index) => <MenuItem style={{ width: '100%' }} key={index} onClick={handleMoreMenuClose}><MenuLink activeStyle={{ background: 'transparent' }} style={{ color: '#000', width: '100%' }} to={link?.link}>{link?.text}</MenuLink></MenuItem>)}
               </Menu>
             </Box>
             <Box sx={{ flexGrow: 1 }} />

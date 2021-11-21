@@ -2,6 +2,7 @@ import { Box, Typography, styled, Grid, Backdrop } from "@mui/material";
 import React, { FunctionComponent } from "react";
 import Form, { InputField } from "../components/Form";
 import Loader from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 interface HomeProps {
 
@@ -50,8 +51,31 @@ const Home: FunctionComponent<HomeProps> = () => {
                 <img style={{ display: 'block', opacity: 0.7, width: '90%', marginLeft: 'auto', marginRight: 'auto' }} alt="banner" src={'banner.jpeg'} />
                 <div style={{ position: 'absolute', zIndex: 300, top: 0 }}>
                     <Typography variant="h3" style={{ textAlign: 'center', fontFamily: `'Rampart One', cursive`, }}>BULLYVAXX</Typography>
-                    <Typography variant="h4" style={{ textAlign: 'center' }}>Two Important Vaccines Have Been Developed; One for the Coronavirus Pandemic and One for the Bullying Epidemic</Typography>
+                    <Box component={'span'} sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        <Typography variant="h4" style={{ textAlign: 'center' }}>Two Important Vaccines Have Been Developed; One for the Coronavirus Pandemic and One for the Bullying Epidemic</Typography>
+                    </Box>
                 </div>
+                <Box component={'span'} sx={{ display: { xs: 'block', sm: 'none' } }}>
+                    <Typography style={{ textAlign: 'center' }}>Two Important Vaccines Have Been Developed; One for the Coronavirus Pandemic and One for the Bullying Epidemic</Typography>
+                </Box>
+            </Box>
+
+            <Box component={'div'} sx={{ width: '100%' }}>
+                <Typography variant="h4" style={{ textAlign: 'center' }}>WHY BULLYVAXX WORKS</Typography>
+                <Grid container spacing={2}>
+                    <Grid item sm={2}></Grid>
+                    <Grid item xs={12} sm={8}>
+                        <Box component={'div'} sx={{ width: '100%', p: 2 }}>
+                            <Video controls>
+                                <source src="mov_bbb.mp4" type="video/mp4" />
+                                <source src="mov_bbb.ogg" type="video/ogg" />
+                                Your browser does not support HTML video.
+                            </Video>
+                            <Typography>Is your children's school protected by BullyVaxx? Click <Link to="/sponsors">HERE</Link> to see</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item sm={2}></Grid>
+                </Grid>
             </Box>
 
 
@@ -63,19 +87,21 @@ const Home: FunctionComponent<HomeProps> = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={7}></Grid>
                         <Grid item xs={12} sm={4}>
-                            <FeedbackForm>
-                                <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
-                                    <FormFieldWrapper>
-                                        <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Full Name" />
-                                    </FormFieldWrapper>
-                                    <FormFieldWrapper>
-                                        <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
-                                    </FormFieldWrapper>
-                                    <FormFieldWrapper>
-                                        <InputField size="small" isMultiline={true} color="secondary" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
-                                    </FormFieldWrapper>
-                                </Form>
-                            </FeedbackForm>
+                            <Box component={'div'} sx={{ width: '100%', p: 1 }}>
+                                <FeedbackForm>
+                                    <Form initialValues={{ form: { username: '' } }} buttonText="submit" buttonSize="medium" submit={() => { }}>
+                                        <FormFieldWrapper>
+                                            <InputField size="small" color="secondary" fullWidth={true} name="name" type="text" variant="outlined" label="Full Name" />
+                                        </FormFieldWrapper>
+                                        <FormFieldWrapper>
+                                            <InputField size="small" color="secondary" fullWidth={true} name="email" type="email" variant="outlined" label="Email" />
+                                        </FormFieldWrapper>
+                                        <FormFieldWrapper>
+                                            <InputField size="small" isMultiline={true} color="secondary" fullWidth={true} name="message" type="text" variant="outlined" label="Message" />
+                                        </FormFieldWrapper>
+                                    </Form>
+                                </FeedbackForm>
+                            </Box>
                         </Grid>
                     </Grid>
                 </FeedbackDiv>

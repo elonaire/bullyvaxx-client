@@ -5,10 +5,27 @@ import Form, { InputField, SelectOption } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
+import { Search, SearchIconWrapper, StyledInputBase } from "../components/Navbar";
+import SearchIcon from '@mui/icons-material/Search';
+import styled from "@emotion/styled";
 
 interface SponsorsProps {
 
 }
+
+export const SearchSchool = styled(StyledInputBase)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    // '& .MuiInputBase-input': {
+    //     border: `solid ${theme.palette.secondary.main} 1px`,
+    //     borderRadius: '5px'
+    // }
+}));
+
+export const SearchSchoolWrapper = styled(Search)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    border: `solid ${theme.palette.secondary.main} 2px`,
+    borderRadius: '3px'
+}));
 
 const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [states, setStates] = React.useState([] as SelectOption[]);
@@ -140,9 +157,24 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     };
 
     return (
-        <div style={{ width: '100%', marginTop: '8%' }}>
+        <div style={{ width: '100%' }}>
             <Grid container spacing={2}>
                 <Grid item sm={7} xs={12}>
+                    <Grid container spacing={2}>
+                        <Grid item sm={3}></Grid>
+                        <Grid item sm={6} xs={12}>
+                            <SearchSchoolWrapper>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <SearchSchool
+                                    placeholder="Search…"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </SearchSchoolWrapper>
+                        </Grid>
+                        <Grid item sm={3}></Grid>
+                    </Grid>
                     <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                 </Grid>
                 <Grid item sm={4} xs={12}>
@@ -166,10 +198,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="school_name"  variant="outlined" label="Name of School" />
+                                <InputField size="small" color="secondary" fullWidth={true} name="school_name" variant="outlined" label="Name of School" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code"  variant="outlined" label="Zip Code of School" />
+                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label="Zip Code of School" />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
@@ -189,7 +221,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 //     })
                                 // });
                             }}
-                            options={{clientId: 'sb'}}
+                            options={{ clientId: 'sb' }}
                         />}
                     </Box>
                 </Grid>
