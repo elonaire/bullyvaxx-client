@@ -109,11 +109,8 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                     <div style={{ width: '20%' }}>
                         <Form initialValues={{ page: '', tab: '' }} buttonText="save" buttonSize="medium" submit={addContent}>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectionChange={handleSelectionChange} selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Sponsors'}]} variant="outlined" label="Select page" />
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectionChange={handleSelectionChange} selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Sponsors'}, {label: 'Message to Moms', value: 'Message to Moms'}, {label: 'Message to Bullies', value: 'Message to Bullies'}]} variant="outlined" label="Select page" />
                             </FormFieldWrapper>
-                            {selectedPage === 'Home' && <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="tab" selectOptions={[{label: 'BullyVaxx works', value: '0'}, {label: 'Is your school protected?', value: '1'}, {label: 'Report a bully or threat', value: '2'}, {label: 'Message to moms', value: '3'}, {label: 'Message to bullies', value: '4'}, {label: 'Principals/school administrators', value: '5'}, {label: 'BullyVaxx Database', value: '7'}]} variant="outlined" label="Select tab" />
-                            </FormFieldWrapper>}
                         </Form>
                     </div>
                     <Editor

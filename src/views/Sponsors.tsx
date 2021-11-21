@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Autocomplete, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FunctionComponent, useEffect } from "react";
 import Form, { InputField, SelectOption } from "../components/Form";
@@ -15,10 +15,7 @@ interface SponsorsProps {
 
 export const SearchSchool = styled(StyledInputBase)(({ theme }) => ({
     color: theme.palette.secondary.main,
-    // '& .MuiInputBase-input': {
-    //     border: `solid ${theme.palette.secondary.main} 1px`,
-    //     borderRadius: '5px'
-    // }
+    width: '100%'
 }));
 
 export const SearchSchoolWrapper = styled(Search)(({ theme }) => ({
@@ -159,23 +156,36 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     return (
         <div style={{ width: '100%' }}>
             <Grid container spacing={2}>
-                <Grid item sm={7} xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item sm={3}></Grid>
-                        <Grid item sm={6} xs={12}>
-                            <SearchSchoolWrapper>
-                                <SearchIconWrapper>
-                                    <SearchIcon />
-                                </SearchIconWrapper>
-                                <SearchSchool
-                                    placeholder="Search…"
-                                    inputProps={{ 'aria-label': 'search' }}
+                <Grid item sm={8} xs={12}>
+                    <Box sx={{ marginTop: '4%', padding: '2%' }}>
+                        <Grid container spacing={2}>
+                            <Grid item sm={3}></Grid>
+                            <Grid item sm={6} xs={12}>
+                            <Typography style={{textAlign: 'center'}} variant="h5">Confirm school sponsorship</Typography>
+                                <Autocomplete
+                                    freeSolo
+                                    id="free-solo-2-demo"
+                                    disableClearable
+                                    options={[].map((option: any) => option.title)}
+                                    renderInput={(params: any) => (
+                                        <SearchSchoolWrapper>
+                                            <SearchIconWrapper>
+                                                <SearchIcon />
+                                            </SearchIconWrapper>
+                                            <SearchSchool
+                                                {...params}
+                                                placeholder="School Name or Zip Code…"
+                                                inputProps={{ ...params.InputProps, type: 'search', }}
+                                            />
+                                        </SearchSchoolWrapper>
+                                    )}
                                 />
-                            </SearchSchoolWrapper>
+
+                            </Grid>
+                            <Grid item sm={3}></Grid>
                         </Grid>
-                        <Grid item sm={3}></Grid>
-                    </Grid>
-                    <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
+                    </Box>
                 </Grid>
                 <Grid item sm={4} xs={12}>
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>

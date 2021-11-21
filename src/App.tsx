@@ -14,6 +14,11 @@ import Login from './views/Login';
 import Admin from './views/Admin';
 import ProtectedRoute from './components/ProtectedRoute';
 import Signup from './views/Signup';
+import ManageReports from './views/ManageReports';
+import ManageUsers from './views/ManageUsers';
+import Sponsorships from './views/Sponsorships';
+import MessageToBullies from './views/MessageToBullies';
+import MessageToMoms from './views/MessageToMoms';
 
 const theme = createTheme({
   palette: {
@@ -59,6 +64,11 @@ function App() {
                   <ProtectedRoute exact component={Admin} path="/dashboard/admin" />
                   <Route exact component={Login} path="/login" />
                   <Route exact component={Signup} path="/signup" />
+                  <ProtectedRoute exact component={ManageReports} path="/dashboard/reports" />
+                  <ProtectedRoute exact component={ManageUsers} path="/dashboard/users" />
+                  <ProtectedRoute exact component={Sponsorships} path="/dashboard/sponsorships" />
+                  <Route exact component={MessageToBullies} path="/bullies" />
+                  <Route exact component={MessageToMoms} path="/moms" />
                 </Switch>
               </div>
             </NavBar>

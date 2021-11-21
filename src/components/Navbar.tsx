@@ -271,7 +271,7 @@ export default function NavBar(props: NavBarProps) {
   const location = useLocation();
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
-  const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'View Reports', link: '', auth: auth.confirmAdminAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
+  const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'Manage Reports', link: 'reports', auth: auth.confirmAdminAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }, { text: 'Manage Users', link: 'users', auth: auth.confirmAdminAuth() }, { text: 'Manage Sponsorships', link: 'sponsorships', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
   const TopNavLinks: INavLink[] = [{ text: 'HOME', link: '', auth: true }, { text: 'SPONSOR A SCHOOL', link: '/sponsors', auth: true }].filter(link => link.auth);
   const TopNavMoreLinks: INavLink[] = [{ text: 'ABOUT US', link: '/about', auth: true }, { text: 'FAQs', link: '/faq', auth: true }, { text: 'MESSAGE TO MOMS', link: '/moms', auth: true }, { text: 'MESSAGE TO BULLIES', link: '/bullies', auth: true }].filter(link => link.auth);
 
@@ -282,7 +282,7 @@ export default function NavBar(props: NavBarProps) {
       <List>
         {DrawerLinks.map((text: INavLink, index) => (
           <ListItem style={{ paddingLeft: 0, paddingRight: 0 }} button key={index}>
-            <MenuLink style={{ width: '100%' }} exact={true} activeStyle={{ width: '100%', margin: 0 }} to={`/dashboard/${text.link}`}><ListItemText style={{ width: '100%' }} primary={text.text} /></MenuLink>
+            <MenuLink style={{ width: '100%' }} exact={true} activeStyle={{ width: '100%', padding: 'inherit', margin: 0, background: '#F44336', color: '#fff' }} to={`/dashboard/${text.link}`}><ListItemText style={{ width: '100%' }} primary={text.text} /></MenuLink>
           </ListItem>
         ))}
       </List>
@@ -318,12 +318,12 @@ export default function NavBar(props: NavBarProps) {
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
-                placeholder="Search…"
+                placeholder="Student username…"
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
             <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
-              {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{ clipPath: `polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%)`, padding: '2%' }} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
+              {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{ borderBottom: 'solid #F44336 5px' }} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
               <NavBarLink onClick={handleMoreMenuOpen} to="#" activeStyle={{ background: 'transparent' }}>MORE <KeyboardArrowDownIcon style={{ position: 'absolute' }} /></NavBarLink>
               <Menu
                 id="menu-appbar"
