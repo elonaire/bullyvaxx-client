@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import Form, { InputField } from "../components/Form";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import Axios from 'axios';
 
 interface HomeProps {
 
@@ -35,7 +36,43 @@ export const FormFieldWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Home: FunctionComponent<HomeProps> = () => {
-    const [loading] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+    const [response, setResponse] = React.useState({} as any);
+    const [selectedPage] = React.useState('Home');
+
+    let url: string;
+
+    if (process.env.NODE_ENV === 'development') {
+        url = `${process.env.REACT_APP_DEV_BACKEND}`;
+    } else if (process.env.NODE_ENV === 'production') {
+        url = `${process.env.REACT_APP_PRODUCTION}`;
+    }
+    let fetchContent = async (q: { page?: string; tab?: string; }) => {
+        setLoading(true);
+        try {
+            let res = await Axios({
+                method: 'get',
+                url: `${url + '/content'}?page=${q.page}&tab=${q.tab}`,
+            });
+
+            console.log('res.data', res.data, response, loading);
+
+            setResponse(res.data);
+
+            setLoading(false);
+        } catch (error: any) {
+            console.log(error.response);
+            setResponse(error.response);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        let abortController = new AbortController();
+        fetchContent({ page: selectedPage, tab: '' });
+        return () => { abortController.abort(); };
+        // eslint-disable-next-line
+    }, [selectedPage]);
 
     return (
         <div style={{ width: '100%' }}>
@@ -77,10 +114,11 @@ const Home: FunctionComponent<HomeProps> = () => {
                                 Your browser does not support HTML video.
                             </Video>
                             <Typography>Is your children's school protected by BullyVaxx? Click <Link to="/sponsors">HERE</Link> to see</Typography>
-                            <div style={{textAlign: 'center', marginTop: '4%'}}>
+                            <div style={{ textAlign: 'center', marginTop: '4%' }}>
                                 <Link to="/login" style={{ textDecoration: 'none' }}><Button color="primary" size="large" variant="outlined">submit bully report</Button></Link>
                             </div>
                         </Box>
+                        <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                     </Grid>
                     <Grid item sm={2}></Grid>
                 </Grid>
