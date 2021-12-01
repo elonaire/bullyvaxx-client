@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 // import MailIcon from '@mui/icons-material/Mail';
 // import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -313,7 +313,7 @@ export default function NavBar(props: NavBarProps) {
               <Link to="/"><img style={{ width: '70px', marginLeft: 'auto', marginRight: 'auto' }} alt="logo" src={'logo.png'} /></Link>
             </Box>
 
-            <Search>
+            {/* <Search>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -321,7 +321,7 @@ export default function NavBar(props: NavBarProps) {
                 placeholder="Student's username…"
                 inputProps={{ 'aria-label': 'search' }}
               />
-            </Search>
+            </Search> */}
             <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block', width: '100%' } }}>
               {TopNavLinks.map((link, index: number) => <NavBarLink activeStyle={{ borderBottom: 'solid #F44336 5px' }} exact={true} key={index} to={link.link}>{link.text}</NavBarLink>)}
               <NavBarLink onClick={handleMoreMenuOpen} to="#" activeStyle={{ background: 'transparent' }}>MORE <KeyboardArrowDownIcon style={{ position: 'absolute' }} /></NavBarLink>
