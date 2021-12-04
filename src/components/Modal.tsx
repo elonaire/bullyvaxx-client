@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import SweetAlert from "react-bootstrap-sweetalert";
 
 interface GenericModalProps {
-    open: boolean;
+    children?: React.ReactNode;
 }
 
 const GenericModal: FunctionComponent<GenericModalProps> = (props: GenericModalProps) => {
@@ -14,7 +14,7 @@ const GenericModal: FunctionComponent<GenericModalProps> = (props: GenericModalP
             title="Error"
             onConfirm={handleClose}
         >
-            School not found!
+            {props.children}
         </SweetAlert>
     );
 }

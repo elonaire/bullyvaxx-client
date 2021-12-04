@@ -7,6 +7,7 @@ import Axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
 import SearchIcon from '@mui/icons-material/Search';
 import GenericModal from "../components/Modal";
+import { Link } from "react-router-dom";
 
 interface SponsorsProps {
 
@@ -23,6 +24,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [sponsorType, setSponsorType] = React.useState('Individual');
     const [userDetails, setUserDetails] = React.useState({} as any);
     const [sponsorshipPrice] = React.useState(84);
+    const [openModal, setOpenModal] = React.useState(false);
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -189,8 +191,15 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     // }, [selectedState]);
 
     let buySponsorship = (userInfo: any) => {
-        createSponsorship({userInfo, form: userDetails});
+        createSponsorship({ userInfo, form: userDetails });
     };
+
+    let handleSearch = (e: any) => {
+        console.log(e);
+        if (e.key === 'Enter') {
+            setOpenModal(true);
+        }
+    }
 
     return (
         <div style={{ width: '100%' }}>
@@ -219,12 +228,17 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                                         <SearchIcon />
                                                     </InputAdornment>
                                                 ),
-                                                color: 'secondary'
+                                                color: 'secondary',
+                                                onKeyUp: e => handleSearch(e)
                                             }}
                                         />
                                     )}
                                 />
-                                <GenericModal open={true}></GenericModal>
+                                {openModal && <GenericModal>
+                                    <div>
+                                    Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
+                                    </div>
+                                </GenericModal>}
                             </Grid>
                             <Grid item sm={3}></Grid>
                         </Grid>
@@ -257,12 +271,12 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper> */}
-                            {[0,1,2].map((school, index) => <div key={index}><FormFieldWrapper>
+                            {[0, 1, 2].map((school, index) => <div key={index}><FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="school_name" variant="outlined" label={`Name of School #${index + 1}`} />
                             </FormFieldWrapper>
-                            <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label={`Zip Code of School #${index + 1}`} />
-                            </FormFieldWrapper></div>)}
+                                <FormFieldWrapper>
+                                    <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label={`Zip Code of School #${index + 1}`} />
+                                </FormFieldWrapper></div>)}
                             {/* <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
                             </FormFieldWrapper> */}
