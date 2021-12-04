@@ -6,6 +6,7 @@ import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import { PayPalButton } from "react-paypal-button-v2";
 import SearchIcon from '@mui/icons-material/Search';
+import GenericModal from "../components/Modal";
 
 interface SponsorsProps {
 
@@ -223,7 +224,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                         />
                                     )}
                                 />
-
+                                <GenericModal open={true}></GenericModal>
                             </Grid>
                             <Grid item sm={3}></Grid>
                         </Grid>
@@ -256,12 +257,12 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper> */}
-                            {[0,1,2].map((school, index) => <><FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="school_name" variant="outlined" label={`Name of School ${index + 1}`} />
+                            {[0,1,2].map((school, index) => <div key={index}><FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} name="school_name" variant="outlined" label={`Name of School #${index + 1}`} />
                             </FormFieldWrapper>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label={`Zip Code of School ${index + 1}`} />
-                            </FormFieldWrapper></>)}
+                                <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label={`Zip Code of School #${index + 1}`} />
+                            </FormFieldWrapper></div>)}
                             {/* <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
                             </FormFieldWrapper> */}
