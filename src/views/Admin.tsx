@@ -119,7 +119,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                     <div style={{ width: '20%' }}>
                         <Form initialValues={{ page: '', tab: '' }} buttonText="save" buttonSize="medium" submit={addContent}>
                             <FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectionChange={handleSelectionChange} selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Sponsors'}, {label: 'Message to Moms', value: 'Message to Moms'}, {label: 'Message to Bullies', value: 'Message to Bullies'}]} variant="outlined" label="Select page" />
+                                <InputField size="small" color="secondary" fullWidth={true} isSelect={true} name="page" selectionChange={handleSelectionChange} selectOptions={[{label: 'Home', value: 'Home'}, {label: 'About', value: 'About'}, {label: 'Faq', value: 'Faq'}, {label: 'Sponsors', value: 'Sponsors'}, {label: 'Message to Moms', value: 'Message to Moms'}, {label: 'Message to Bullies', value: 'Message to Bullies'}, {label: 'Bullying Experience', value: 'Bullying Experience'}]} variant="outlined" label="Select page" />
                             </FormFieldWrapper>
                         </Form>
                     </div>
