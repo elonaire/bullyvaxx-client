@@ -19,6 +19,7 @@ import ManageUsers from './views/ManageUsers';
 import Sponsorships from './views/Sponsorships';
 import MessageToBullies from './views/MessageToBullies';
 import MessageToMoms from './views/MessageToMoms';
+import BullyingExperience from './views/BullyingExperience';
 
 const theme = createTheme({
   palette: {
@@ -69,6 +70,7 @@ function App() {
                   <ProtectedRoute exact component={Sponsorships} path="/dashboard/sponsorships" />
                   <Route exact component={MessageToBullies} path="/bullies" />
                   <Route exact component={MessageToMoms} path="/moms" />
+                  <Route exact component={BullyingExperience} path="/experience" />
                 </Switch>
               </div>
             </NavBar>
