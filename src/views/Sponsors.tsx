@@ -201,6 +201,11 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         }
     }
 
+    let handleModalClose = () => {
+        console.log('modal closed');
+        setOpenModal(false);
+    }
+
     return (
         <div style={{ width: '100%' }}>
             <Grid container spacing={2}>
@@ -234,7 +239,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                         />
                                     )}
                                 />
-                                {openModal && <GenericModal>
+                                {openModal && <GenericModal handleClose={handleModalClose}>
                                     <div>
                                     Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
                                     </div>

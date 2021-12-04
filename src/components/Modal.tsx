@@ -3,18 +3,20 @@ import SweetAlert from "react-bootstrap-sweetalert";
 
 interface GenericModalProps {
     children?: React.ReactNode;
+    handleClose: () => void;
 }
 
 const GenericModal: FunctionComponent<GenericModalProps> = (props: GenericModalProps) => {
-    const handleClose = () => {};
+    const { children, handleClose } = props;
+    // const handleClose = () => {};
 
     return (
         <SweetAlert
             error
             title="Error"
-            onConfirm={handleClose}
+            onConfirm={() => handleClose()}
         >
-            {props.children}
+            {children}
         </SweetAlert>
     );
 }
