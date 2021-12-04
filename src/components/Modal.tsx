@@ -12,9 +12,11 @@ const GenericModal: FunctionComponent<GenericModalProps> = (props: GenericModalP
 
     return (
         <SweetAlert
-            error
-            title="Error"
+            info
+            title="Info"
             onConfirm={() => handleClose()}
+            confirmBtnBsStyle="primary"
+            showCloseButton={true}
         >
             {children}
         </SweetAlert>

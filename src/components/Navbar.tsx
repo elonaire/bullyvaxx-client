@@ -272,8 +272,10 @@ export default function NavBar(props: NavBarProps) {
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
   const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'Manage Reports', link: 'reports', auth: auth.confirmAdminAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }, { text: 'Manage Users', link: 'users', auth: auth.confirmAdminAuth() }, { text: 'Manage Sponsorships', link: 'sponsorships', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
+
   const TopNavLinks: INavLink[] = [{ text: 'HOME', link: '', auth: true }, { text: 'SPONSOR A SCHOOL', link: '/sponsors', auth: true }, { text: 'YOUR BULLYING EXPERIENCE', link: '/experience', auth: true }].filter(link => link.auth);
-  const TopNavMoreLinks: INavLink[] = [{ text: 'ABOUT US', link: '/about', auth: true }, { text: 'FAQs', link: '/faq', auth: true }, { text: 'MESSAGE TO MOMS', link: '/moms', auth: true }, { text: 'MESSAGE TO BULLIES', link: '/bullies', auth: true }].filter(link => link.auth);
+
+  const TopNavMoreLinks: INavLink[] = [{ text: 'SCHOOL ADMINISTRATORS', link: '/administrators', auth: true }, { text: 'ASIAN AMERICAN STUDENTS', link: '/asian-american-students', auth: true }, { text: 'FAQs', link: '/faq', auth: true }, { text: 'MESSAGE TO MOMS', link: '/moms', auth: true }, { text: 'MESSAGE TO BULLIES', link: '/bullies', auth: true } ,{ text: 'ABOUT US', link: '/about', auth: true }, { text: 'CONTACT US', link: '/contact', auth: true }].filter(link => link.auth);
 
   const drawer = (
     <div>

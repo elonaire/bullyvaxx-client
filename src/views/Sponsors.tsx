@@ -195,14 +195,12 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     };
 
     let handleSearch = (e: any) => {
-        console.log(e);
         if (e.key === 'Enter') {
             setOpenModal(true);
         }
     }
 
     let handleModalClose = () => {
-        console.log('modal closed');
         setOpenModal(false);
     }
 
