@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import React, { FunctionComponent, useEffect } from "react";
-import Form, { InputField, SelectOption } from "../components/Form";
+import React, { FunctionComponent } from "react";
+import Form, { InputField } from "../components/Form";
 import { FormFieldWrapper } from "./Home";
 import Axios from 'axios';
 import Backdrop from "@mui/material/Backdrop";
@@ -13,15 +13,15 @@ interface SignupProps {
 }
 
 const Signup: FunctionComponent<SignupProps> = () => {
-    const [states, setStates] = React.useState([] as SelectOption[]);
-    const [selectedState, setSelectedState] = React.useState('');
-    const [counties, setCounties] = React.useState([] as SelectOption[]);
+    // const [states, setStates] = React.useState([] as SelectOption[]);
+    // const [selectedState, setSelectedState] = React.useState('');
+    // const [counties, setCounties] = React.useState([] as SelectOption[]);
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState({} as any);
 
     const history = useHistory();
 
-    let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
+    // let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
 
     let url: string;
 
@@ -31,68 +31,68 @@ const Signup: FunctionComponent<SignupProps> = () => {
         url = `${process.env.REACT_APP_PRODUCTION}`;
     }
 
-    let getStates = async () => {
-        setLoading(true);
-        try {
-            let res = await Axios({
-                method: 'get',
-                url: `${statesUrl}`,
-            });
+    // let getStates = async () => {
+    //     setLoading(true);
+    //     try {
+    //         let res = await Axios({
+    //             method: 'get',
+    //             url: `${statesUrl}`,
+    //         });
 
-            console.log('res.data', res.data, states, loading);
+    //         console.log('res.data', res.data, states, loading);
 
-            setStates(res.data.map((stateInfo: any[], index: number): SelectOption => {
-                let state = {
-                    label: stateInfo[1],
-                    value: stateInfo[2]
-                }
+    //         setStates(res.data.map((stateInfo: any[], index: number): SelectOption => {
+    //             let state = {
+    //                 label: stateInfo[1],
+    //                 value: stateInfo[2]
+    //             }
 
-                if (index === 0) {
-                    state.label = 'Choose your State';
-                    state.value = '';
-                }
+    //             if (index === 0) {
+    //                 state.label = 'Choose your State';
+    //                 state.value = '';
+    //             }
 
-                return state;
-            }));
+    //             return state;
+    //         }));
 
-            setLoading(false);
-        } catch (error: any) {
-            console.log(error.response);
-            setStates([]);
-            setLoading(false);
-        }
-    };
+    //         setLoading(false);
+    //     } catch (error: any) {
+    //         console.log(error.response);
+    //         setStates([]);
+    //         setLoading(false);
+    //     }
+    // };
 
-    let getCounties = async (selectedState: string) => {
-        setLoading(true);
-        try {
-            let res = await Axios({
-                method: 'get',
-                url: `https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=county:*&in=state:${selectedState}&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1`,
-            });
+    // let getCounties = async (selectedState: string) => {
+    //     setLoading(true);
+    //     try {
+    //         let res = await Axios({
+    //             method: 'get',
+    //             url: `https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=county:*&in=state:${selectedState}&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1`,
+    //         });
 
-            console.log('res.data', res.data, states, loading);
+    //         console.log('res.data', res.data, states, loading);
 
-            setCounties(res.data.map((stateInfo: any[], index: number): SelectOption => {
-                let state = {
-                    label: stateInfo[1],
-                    value: stateInfo[1]
-                }
+    //         setCounties(res.data.map((stateInfo: any[], index: number): SelectOption => {
+    //             let state = {
+    //                 label: stateInfo[1],
+    //                 value: stateInfo[1]
+    //             }
 
-                if (index === 0) {
-                    state.label = 'Choose your County';
-                    state.value = '';
-                }
+    //             if (index === 0) {
+    //                 state.label = 'Choose your County';
+    //                 state.value = '';
+    //             }
 
-                return state;
-            }));
-            setLoading(false);
-        } catch (error: any) {
-            console.log(error.response);
-            setCounties([]);
-            setLoading(false);
-        }
-    };
+    //             return state;
+    //         }));
+    //         setLoading(false);
+    //     } catch (error: any) {
+    //         console.log(error.response);
+    //         setCounties([]);
+    //         setLoading(false);
+    //     }
+    // };
 
     let submitDetails = async (reqBody: any) => {
         console.log(reqBody);
@@ -119,23 +119,23 @@ const Signup: FunctionComponent<SignupProps> = () => {
         }
     };
 
-    let handleSelection = (selected: SelectOption) => {
-        setSelectedState(selected.value);
-    };
+    // let handleSelection = (selected: SelectOption) => {
+    //     setSelectedState(selected.value);
+    // };
 
-    useEffect(() => {
-        let abortController = new AbortController();
-        getStates();
-        return () => { abortController.abort(); };
-        // eslint-disable-next-line
-    }, []);
+    // useEffect(() => {
+    //     let abortController = new AbortController();
+    //     getStates();
+    //     return () => { abortController.abort(); };
+    //     // eslint-disable-next-line
+    // }, []);
 
-    useEffect(() => {
-        let abortController = new AbortController();
-        getCounties(selectedState);
-        return () => { abortController.abort(); };
-        // eslint-disable-next-line
-    }, [selectedState]);
+    // useEffect(() => {
+    //     let abortController = new AbortController();
+    //     getCounties(selectedState);
+    //     return () => { abortController.abort(); };
+    //     // eslint-disable-next-line
+    // }, [selectedState]);
 
 
     return (
@@ -156,13 +156,13 @@ const Signup: FunctionComponent<SignupProps> = () => {
                 <Grid item sm={4}></Grid>
                 <Grid item xs={12} sm={4}>
                     <Typography variant="h4">Report a Bully or threat</Typography>
-                    <Form initialValues={{ username: '', state: '', county: '', email: '', password: '', confirmPassword: '' }} buttonText="sign up" buttonSize="medium" submit={submitDetails}>
-                        <FormFieldWrapper>
+                    <Form initialValues={{ username: '', email: '', password: '', confirmPassword: '' }} buttonText="sign up" buttonSize="medium" submit={submitDetails}>
+                        {/* <FormFieldWrapper>
                             <InputField size="small" color="secondary" selectionChange={handleSelection} isSelect={true} fullWidth={true} name="state" selectOptions={states} variant="outlined" label="Select your state" />
                         </FormFieldWrapper>
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
-                        </FormFieldWrapper>
+                        </FormFieldWrapper> */}
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="username" type="text" variant="outlined" label="Username" />
                         </FormFieldWrapper>

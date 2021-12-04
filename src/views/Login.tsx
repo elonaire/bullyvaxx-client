@@ -9,6 +9,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import AlertSnackBar from '../components/Alert';
 
 interface LoginProps {
     history: any;
@@ -94,8 +95,9 @@ const Login: FunctionComponent<LoginProps> = (props: LoginProps) => {
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="password" type="password" variant="outlined" label="Confirm Password" />
                         </FormFieldWrapper>
-                        <Typography variant="body2" color="error">{response?.data?.message}</Typography>
+                        {/* <Typography variant="body2" color="error">{response?.data?.message}</Typography> */}
                     </Form>
+                    {response?.data?.message && <AlertSnackBar severity="error" message={response?.data?.message}></AlertSnackBar>}
                     <Typography component={'p'}>If you do not have an account, sign up <Link to="/signup">here</Link>.</Typography>
                 </Grid>
                 <Grid item sm={4}></Grid>
