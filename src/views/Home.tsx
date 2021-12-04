@@ -108,15 +108,15 @@ const Home: FunctionComponent<HomeProps> = () => {
                     <Grid item sm={2}></Grid>
                     <Grid item xs={12} sm={8}>
                         <Box component={'div'} sx={{ width: '100%', p: 2 }}>
+                            <div style={{ textAlign: 'center', marginTop: '4%', marginBottom: '4%' }}>
+                                <Link to="/login" style={{ textDecoration: 'none' }}><Button color="primary" size="large" variant="outlined">submit bully report</Button></Link>
+                            </div>
                             <Video controls>
                                 <source src="mov_bbb.mp4" type="video/mp4" />
                                 <source src="mov_bbb.ogg" type="video/ogg" />
                                 Your browser does not support HTML video.
                             </Video>
-                            <Typography>Is your children's school protected by BullyVaxx? Click <Link to="/sponsors">HERE</Link> to see</Typography>
-                            <div style={{ textAlign: 'center', marginTop: '4%' }}>
-                                <Link to="/login" style={{ textDecoration: 'none' }}><Button color="primary" size="large" variant="outlined">submit bully report</Button></Link>
-                            </div>
+                            <Typography>Is your school protected by BullyVaxx? Click <Link to="/sponsors">HERE</Link> to see</Typography>
                         </Box>
                         <div dangerouslySetInnerHTML={{ __html: response?.content }}></div>
                     </Grid>
