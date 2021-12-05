@@ -20,6 +20,9 @@ import Sponsorships from './views/Sponsorships';
 import MessageToBullies from './views/MessageToBullies';
 import MessageToMoms from './views/MessageToMoms';
 import BullyingExperience from './views/BullyingExperience';
+import SchoolAdministrators from './views/SchoolAdministrators';
+import AsianAmericanStudents from './views/AsianAmericanStudents';
+import ContactUs from './views/ContactUs';
 
 const theme = createTheme({
   palette: {
@@ -71,6 +74,9 @@ function App() {
                   <Route exact component={MessageToBullies} path="/bullies" />
                   <Route exact component={MessageToMoms} path="/moms" />
                   <Route exact component={BullyingExperience} path="/experience" />
+                  <Route exact component={SchoolAdministrators} path="/administrators" />
+                  <Route exact component={AsianAmericanStudents} path="/asian-american-students" />
+                  <Route exact component={ContactUs} path="/contact" />
                 </Switch>
               </div>
             </NavBar>
