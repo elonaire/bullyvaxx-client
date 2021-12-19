@@ -25,6 +25,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [userDetails, setUserDetails] = React.useState({} as any);
     const [sponsorshipPrice] = React.useState(84);
     const [openModal, setOpenModal] = React.useState(false);
+    const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -224,7 +225,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                             InputProps={{
                                                 ...params.InputProps,
                                                 type: 'search',
-                                                placeholder: 'School Name or Zip Code…',
+                                                placeholder: 'School Name and Zip Code…',
                                                 size: 'small',
                                                 startAdornment: (
                                                     <InputAdornment position="start">
@@ -252,7 +253,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
                         <Typography variant="h4">Become a sponsor</Typography>
 
-                        {!canCheckout && <Form initialValues={{ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school_name: '', zip_code: '', quantity: '' }} buttonText="checkout" buttonSize="medium" submit={createUser}>
+                        {!canCheckout && <Form initialValues={formSchema} buttonText="checkout" buttonSize="medium" submit={createUser}>
                             <FormFieldWrapper>
                                 Sponsor type:  <br /><FRadioButton selectionChange={handleSponsorTypeSelection} name="type" options={['Individual', 'Business or Group']} />
                             </FormFieldWrapper>
@@ -275,10 +276,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper> */}
                             {[0, 1, 2].map((school, index) => <div key={index}><FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name="school_name" variant="outlined" label={`Name of School #${index + 1}`} />
+                                <InputField size="small" color="secondary" fullWidth={true} name={`school${index + 1}_name`} variant="outlined" label={`Name of School #${index + 1}`} />
                             </FormFieldWrapper>
                                 <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name="zip_code" variant="outlined" label={`Zip Code of School #${index + 1}`} />
+                                    <InputField size="small" color="secondary" fullWidth={true} name={`school${index + 1}_zip_code`} variant="outlined" label={`Zip Code of School #${index + 1}`} />
                                 </FormFieldWrapper></div>)}
                             {/* <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
