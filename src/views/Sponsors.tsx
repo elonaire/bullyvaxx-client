@@ -36,8 +36,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [userDetails, setUserDetails] = React.useState({} as any);
     const [sponsorshipPrice] = React.useState(84);
     const [openModal, setOpenModal] = React.useState(false);
-    const [formSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
-    const [schoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[])
+    const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
+    const [schoolsArray, setSchoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[])
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -217,6 +217,16 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         setOpenModal(false);
     }
 
+    let handleAddSchool = () => {
+        let nextSchool = schoolsArray.length + 1;
+        let updatedSchools: SchoolInfo[] = [...schoolsArray, {name: `school${nextSchool}_name`, zip_code: `school${nextSchool}_zip_code`}];
+        let updatedFormSchema = {...formSchema, [`school${nextSchool}_name`]: '', [`school${nextSchool}_zip_code`]: ''};
+        setFormSchema(updatedFormSchema);
+        setSchoolsArray(updatedSchools);
+        console.log('updatedFormSchema', updatedFormSchema);
+        
+    }
+
     return (
         <div style={{ width: '100%' }}>
             <Grid container spacing={2}>
@@ -294,7 +304,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                     <InputField size="small" color="secondary" fullWidth={true} name={school?.zip_code} variant="outlined" label={`Zip Code of School #${index + 1}`} />
                                 </FormFieldWrapper></div>)}
                             <div style={{marginBottom: '2%', marginTop: '2%'}}>
-                            <Button variant="contained" endIcon={<AddIcon />}>
+                            <Button onClick={handleAddSchool} variant="contained" endIcon={<AddIcon />}>
                                 ADD SCHOOL
                             </Button>
                             </div>
