@@ -37,7 +37,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [sponsorshipPrice] = React.useState(84);
     const [openModal, setOpenModal] = React.useState(false);
     const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
-    const [schoolsArray, setSchoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[])
+    const [schoolsArray, setSchoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[]);
+    const [modalContent, setModalContent] = React.useState('' as any);
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -158,6 +159,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             console.log(error.response);
             setResponse(error.response);
             setLoading(false);
+            setModalContent(<p>Something went wrong!</p>);
+            setOpenModal(true);
         }
     };
 
@@ -180,6 +183,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             console.log(error.response);
             setResponse(error.response);
             setLoading(false);
+            setModalContent(<p>Something went wrong!</p>);
+            setOpenModal(true);
         }
     };
 
@@ -209,6 +214,9 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
 
     let handleSearch = (e: any) => {
         if (e.key === 'Enter') {
+            setModalContent(<div>
+                Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
+            </div>)
             setOpenModal(true);
         }
     }
@@ -261,9 +269,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                     )}
                                 />
                                 {openModal && <GenericModal handleClose={handleModalClose}>
-                                    <div>
-                                        Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
-                                    </div>
+                                    {modalContent}
                                 </GenericModal>}
                             </Grid>
                             <Grid item sm={3}></Grid>
