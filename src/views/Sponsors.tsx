@@ -1,4 +1,3 @@
-import { Autocomplete, Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { FunctionComponent, useEffect } from "react";
 import Form, { FRadioButton, InputField, SelectOption } from "../components/Form";
@@ -8,9 +7,21 @@ import { PayPalButton } from "react-paypal-button-v2";
 import SearchIcon from '@mui/icons-material/Search';
 import GenericModal from "../components/Modal";
 import { Link } from "react-router-dom";
+import AddIcon from '@mui/icons-material/Add';
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import Button from "@mui/material/Button";
 
 interface SponsorsProps {
 
+}
+
+interface SchoolInfo {
+    name: string;
+    zip_code: string;
 }
 
 const Sponsors: FunctionComponent<SponsorsProps> = () => {
@@ -26,7 +37,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [sponsorshipPrice] = React.useState(84);
     const [openModal, setOpenModal] = React.useState(false);
     const [formSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
-    // const [schoolsArray] = React.useState()
+    const [schoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[])
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -241,7 +252,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 />
                                 {openModal && <GenericModal handleClose={handleModalClose}>
                                     <div>
-                                    Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
+                                        Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
                                     </div>
                                 </GenericModal>}
                             </Grid>
@@ -276,12 +287,17 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                             <FormFieldWrapper>
                                 <InputField size="small" color="secondary" isSelect={true} fullWidth={true} name="county" selectOptions={counties} variant="outlined" label="Select your county" />
                             </FormFieldWrapper> */}
-                            {[0, 1, 2].map((school, index) => <div key={index}><FormFieldWrapper>
-                                <InputField size="small" color="secondary" fullWidth={true} name={`school${index + 1}_name`} variant="outlined" label={`Name of School #${index + 1}`} />
+                            {schoolsArray.map((school, index) => <div key={index}><FormFieldWrapper>
+                                <InputField size="small" color="secondary" fullWidth={true} name={school?.name} variant="outlined" label={`Name of School #${index + 1}`} />
                             </FormFieldWrapper>
                                 <FormFieldWrapper>
-                                    <InputField size="small" color="secondary" fullWidth={true} name={`school${index + 1}_zip_code`} variant="outlined" label={`Zip Code of School #${index + 1}`} />
+                                    <InputField size="small" color="secondary" fullWidth={true} name={school?.zip_code} variant="outlined" label={`Zip Code of School #${index + 1}`} />
                                 </FormFieldWrapper></div>)}
+                            <div style={{marginBottom: '2%', marginTop: '2%'}}>
+                            <Button variant="contained" endIcon={<AddIcon />}>
+                                ADD SCHOOL
+                            </Button>
+                            </div>
                             {/* <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />
                             </FormFieldWrapper> */}
