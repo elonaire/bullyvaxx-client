@@ -130,6 +130,7 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                         // editorClassName="editorClassName"
                         editorStyle={{ border: '1px solid gray', minHeight: '400px' }}
                         onEditorStateChange={(e: any) => handleEditorStateChange(e)}
+                        handlePastedText={() => false}
                     />
                 </Grid>
             </Grid>
