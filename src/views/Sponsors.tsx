@@ -14,6 +14,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
+import Backdrop from "@mui/material/Backdrop";
+import Loader from "react-loader-spinner";
 
 interface SponsorsProps {
 
@@ -39,6 +41,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [schoolsArray, setSchoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[]);
     const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: schoolsArray.length, schoolsArray });
     const [modalContent, setModalContent] = React.useState('' as any);
+    const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -155,10 +158,14 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setCanCheckout(true);
 
             setLoading(false);
+            setMessageType('success');
+            setModalContent(<p>{res.data.message}</p>);
+            setOpenModal(true);
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);
             setLoading(false);
+            setMessageType('error');
             setModalContent(<p>Something went wrong!</p>);
             setOpenModal(true);
         }
@@ -179,10 +186,14 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setCanCheckout(false);
 
             setLoading(false);
+            setMessageType('success');
+            setModalContent(<p>Sponsorships purchase successful!</p>);
+            setOpenModal(true);
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);
             setLoading(false);
+            setMessageType('error');
             setModalContent(<p>Something went wrong!</p>);
             setOpenModal(true);
         }
@@ -237,6 +248,18 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
 
     return (
         <div style={{ width: '100%' }}>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loading}
+            >
+                <Loader
+                    type="Puff"
+                    color="#f44336"
+                    height={100}
+                    width={100}
+                    visible={loading}
+                />
+            </Backdrop>
             <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
                     <Box sx={{ marginTop: '4%', padding: '2%' }}>
@@ -268,7 +291,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                         />
                                     )}
                                 />
-                                {openModal && <GenericModal handleClose={handleModalClose}>
+                                {openModal && <GenericModal messageType={messageType} handleClose={handleModalClose}>
                                     {modalContent}
                                 </GenericModal>}
                             </Grid>
