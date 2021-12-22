@@ -189,6 +189,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setMessageType('success');
             setModalContent(<p>Sponsorships purchase successful!</p>);
             setOpenModal(true);
+            setSchoolsArray([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }]);
+            setFormSchema({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: schoolsArray.length, schoolsArray });
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);
