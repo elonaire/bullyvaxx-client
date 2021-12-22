@@ -36,8 +36,8 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [userDetails, setUserDetails] = React.useState({} as any);
     const [sponsorshipPrice] = React.useState(84);
     const [openModal, setOpenModal] = React.useState(false);
-    const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: '' });
     const [schoolsArray, setSchoolsArray] = React.useState([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }] as SchoolInfo[]);
+    const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: schoolsArray.length, schoolsArray });
     const [modalContent, setModalContent] = React.useState('' as any);
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
