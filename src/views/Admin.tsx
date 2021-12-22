@@ -14,6 +14,7 @@ import Typography from "@mui/material/Typography";
 // import auth from '../utilities/Auth';
 // import Loader from 'react-loader-spinner';
 import htmlToDraft from 'html-to-draftjs';
+import GenericModal from "../components/Modal";
 
 interface AdminProps {
     // history?: any;
@@ -23,6 +24,9 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
     const [editorState, setEditorState] = React.useState();
     const [content, setContent] = React.useState();
     const [selectedPage, setSelectedPage] = React.useState('');
+    const [openModal, setOpenModal] = React.useState(false);
+    const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
+    const [modalContent, setModalContent] = React.useState('' as any);
 
     const handleEditorStateChange = (editorState: any) => {
         setEditorState(editorState);
@@ -59,9 +63,15 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
             setResponse(res.data);
 
             setLoading(false);
+            setMessageType('success');
+            setModalContent(<p>Content updated successfully!</p>);
+            setOpenModal(true);
         } catch (error: any) {
             setResponse(error.response);
             setLoading(false);
+            setMessageType('error');
+            setModalContent(<p>Something went wrong!</p>);
+            setOpenModal(true);
         }
     };
 
@@ -99,6 +109,10 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
         // eslint-disable-next-line
     }, [selectedPage]);
 
+    let handleModalClose = () => {
+        setOpenModal(false);
+    }
+
     return (
         <div style={{ width: '100%', marginTop: '10%', padding: '2%' }}>
             <Backdrop
@@ -113,6 +127,9 @@ const Admin: FunctionComponent<AdminProps> = (props: AdminProps) => {
                     visible={loading}
                 />
             </Backdrop>
+            {openModal && <GenericModal messageType={messageType} handleClose={handleModalClose}>
+                                    {modalContent}
+                                </GenericModal>}
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Typography variant="h4">Edit website content</Typography>
