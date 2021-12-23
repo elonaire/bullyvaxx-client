@@ -5,11 +5,12 @@ interface DataTableProps {
     columns: GridColDef[];
     rows: any[];
     defaultSortColumn: string;
+    rowId: string;
 }
 
 // export interface 
  
-const DataTable: FunctionComponent<DataTableProps> = ({columns, rows, defaultSortColumn}) => {
+const DataTable: FunctionComponent<DataTableProps> = ({columns, rows, defaultSortColumn, rowId}) => {
     const [sortModel, setSortModel] = React.useState<GridSortModel>([
         {
           field: defaultSortColumn,
@@ -27,6 +28,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({columns, rows, defaultSor
             sortModel={sortModel}
             onSortModelChange={(model) => setSortModel(model)}
             disableExtendRowFullWidth
+            getRowId={(row) => row[rowId]}
           />}
         </div>
       );
