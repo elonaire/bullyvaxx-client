@@ -166,7 +166,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setResponse(error.response);
             setLoading(false);
             setMessageType('error');
-            setModalContent(<p>Something went wrong!</p>);
+            setModalContent(<p>{error?.response?.data?.message}</p>);
             setOpenModal(true);
         }
     };
@@ -191,6 +191,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
             setOpenModal(true);
             setSchoolsArray([{ name: 'school1_name', zip_code: 'school1_zip_code' }, { name: 'school2_name', zip_code: 'school2_zip_code' }, { name: 'school3_name', zip_code: 'school3_zip_code' }]);
             setFormSchema({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: schoolsArray.length, schoolsArray });
+            setUserDetails({});
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);
@@ -227,6 +228,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
 
     let handleSearch = (e: any) => {
         if (e.key === 'Enter') {
+            setMessageType('info');
             setModalContent(<div>
                 Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
             </div>)
