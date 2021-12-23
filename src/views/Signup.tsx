@@ -8,6 +8,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import GenericModal from "../components/Modal";
 
 interface SignupProps {
 }
@@ -18,6 +19,9 @@ const Signup: FunctionComponent<SignupProps> = () => {
     // const [counties, setCounties] = React.useState([] as SelectOption[]);
     const [loading, setLoading] = React.useState(false);
     const [response, setResponse] = React.useState({} as any);
+    const [modalContent, setModalContent] = React.useState('' as any);
+    const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
+    const [openModal, setOpenModal] = React.useState(false);
 
     const history = useHistory();
 
@@ -111,11 +115,17 @@ const Signup: FunctionComponent<SignupProps> = () => {
             setResponse(res.data);
 
             setLoading(false);
+            setMessageType('success');
+            setModalContent(<p>{res.data.message}</p>);
+            setOpenModal(true);
             history.push('/login');
         } catch (error: any) {
             console.log(error.response);
             setResponse(error.response);
             setLoading(false);
+            setMessageType('error');
+            setModalContent(<p>Something went wrong!</p>);
+            setOpenModal(true);
         }
     };
 
@@ -136,6 +146,9 @@ const Signup: FunctionComponent<SignupProps> = () => {
     //     return () => { abortController.abort(); };
     //     // eslint-disable-next-line
     // }, [selectedState]);
+    let handleModalClose = () => {
+        setOpenModal(false);
+    }
 
 
     return (
@@ -152,6 +165,9 @@ const Signup: FunctionComponent<SignupProps> = () => {
                     visible={loading}
                 />
             </Backdrop>
+            {openModal && <GenericModal messageType={messageType} handleClose={handleModalClose}>
+                                    {modalContent}
+                                </GenericModal>}
             <Grid container spacing={2}>
                 <Grid item sm={4}></Grid>
                 <Grid item xs={12} sm={4}>
@@ -175,7 +191,7 @@ const Signup: FunctionComponent<SignupProps> = () => {
                         <FormFieldWrapper>
                             <InputField size="small" color="secondary" fullWidth={true} name="confirmPassword" type="password" variant="outlined" label="Confirm Password" />
                         </FormFieldWrapper>
-                        <Typography variant="body2" color="error">{response?.data?.message}</Typography>
+                        {/* <Typography variant="body2" color="error">{response?.data?.message}</Typography> */}
                     </Form>
                     <Typography component={'p'}>If you already have an account, login <Link to="/login">here</Link>.</Typography>
                 </Grid>
