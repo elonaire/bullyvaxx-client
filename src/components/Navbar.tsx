@@ -271,7 +271,7 @@ export default function NavBar(props: NavBarProps) {
   const location = useLocation();
   !location.pathname.includes('dashboard') ? (drawerWidth = 0) : (drawerWidth = 240);
 
-  const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'Manage Reports', link: 'reports', auth: auth.confirmAdminAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }, { text: 'Manage Users', link: 'users', auth: auth.confirmAdminAuth() }, { text: 'Manage Sponsorships', link: 'sponsorships', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
+  const DrawerLinks: INavLink[] = [{ text: 'Submit Report', link: 'forms', auth: auth.confirmAdminAuth() || auth.confirmAuth() }, { text: 'Manage Content', link: 'admin', auth: auth.confirmAdminAuth() }, { text: 'Manage Users', link: 'users', auth: auth.confirmAdminAuth() }, { text: 'Manage Sponsorships', link: 'sponsorships', auth: auth.confirmAdminAuth() }].filter(link => link.auth);
 
   const TopNavLinks: INavLink[] = [{ text: 'HOME', link: '', auth: true }, { text: 'SPONSOR A SCHOOL', link: '/sponsors', auth: true }, { text: 'YOUR BULLYING EXPERIENCE', link: '/experience', auth: true }].filter(link => link.auth);
 
