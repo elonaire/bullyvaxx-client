@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import React, { FunctionComponent } from 'react';
 import Form, { FRadioButton, InputField } from '../components/Form';
+import Axios from 'axios';
+import Backdrop from '@mui/material/Backdrop';
+import Loader from 'react-loader-spinner';
+import GenericModal from '../components/Modal';
 
 interface ReportsProps { }
 
@@ -14,6 +19,10 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
+const Input = styled('input')({
+  display: 'none',
+});
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -48,48 +57,78 @@ function a11yProps(index: number) {
 }
 
 const Reports: FunctionComponent<ReportsProps> = () => {
-  const [value, setValue] = React.useState(0);
-  const [uploadedVideo] = React.useState('');
+  const [value, setValue] = React.useState(3);
+  const [videoUploadStatus, setVideoUploadStatus] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [response, setResponse] = React.useState({} as any);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [modalContent, setModalContent] = React.useState('' as any);
+  const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  // let url: string;
+  const formData = new FormData();
 
-  // if (process.env.NODE_ENV === 'development') {
-  //   url = `${process.env.REACT_APP_DEV_BACKEND}`;
-  // } else if (process.env.NODE_ENV === 'production') {
-  //   url = `${process.env.REACT_APP_PRODUCTION}`;
-  // }
+  let url: string;
 
-  let uploadVideo = async (reqBody: any) => {
-    console.log('reqBody', reqBody);
-    
+  if (process.env.NODE_ENV === 'development') {
+    url = `${process.env.REACT_APP_DEV_BACKEND}`;
+  } else if (process.env.NODE_ENV === 'production') {
+    url = `${process.env.REACT_APP_PRODUCTION}`;
+  }
 
-    // setLoading(true);
-    // try {
-    //     let res = await Axios({
-    //         method: 'post',
-    //         url: `${url + '/content/create'}`,
-    //         data: reqBody,
-    //     });
+  let uploadVideo = async (e: any) => {
+    console.log('e', e);
+    formData.set('File', e.target.files[0]);
 
-    //     console.log('res.data', res.data, response, loading);
+    setLoading(true);
+    try {
+      let res = await Axios({
+        method: 'post',
+        url: `${url + '/file-upload/upload'}`,
+        data: formData,
+      });
 
-    //     setResponse(res.data);
+      console.log('res.data', res.data, response, loading);
 
-    //     setLoading(false);
-    // } catch (error: any) {
-    //     console.log(error.response);
-    //     setResponse(error.response);
-    //     setLoading(false);
-    // }
+      setResponse(res.data);
+
+      setLoading(false);
+      setVideoUploadStatus(true);
+    } catch (error: any) {
+      console.log(error.response);
+      setResponse(error.response);
+      setLoading(false);
+      setMessageType('error');
+      setModalContent(<p>{error?.response?.data?.message}</p>);
+      setOpenModal(true);
+    }
   };
+
+  let handleModalClose = () => {
+    setOpenModal(false);
+  }
 
   return (
     <div style={{ width: '100%' }}>
-      {!uploadedVideo && <Box sx={{ width: '100%', p: 2 }}>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <Loader
+          type="Puff"
+          color="#f44336"
+          height={100}
+          width={100}
+          visible={loading}
+        />
+      </Backdrop>
+      {openModal && <GenericModal messageType={messageType} handleClose={handleModalClose}>
+        {modalContent}
+      </GenericModal>}
+      {!videoUploadStatus && <Box sx={{ width: '100%', p: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={7}>
             <Typography variant="h3">Start by uploading a simple "selfie" video using the statement below:</Typography>
@@ -97,9 +136,15 @@ const Reports: FunctionComponent<ReportsProps> = () => {
               NOTE: If you are submitting this information as a trustee for another individual who chooses to not be identified, please add the statement below to your video: I am submitting this information as a trustee.
 
               Upload an Identification Video</p>
-            <Form initialValues={{ selfie_video: '' }} buttonText="upload" buttonSize="medium" submit={uploadVideo}>
+            {/* <Form initialValues={{ selfie_video: '' }} buttonText="upload" buttonSize="medium" submit={uploadVideo}>
               <InputField size="small" color="secondary" name="selfie_video" type="file" variant="outlined" />
-            </Form>
+            </Form> */}
+            <label htmlFor="contained-button-file">
+              <Input accept="video/*" id="contained-button-file" onChange={(e) => uploadVideo(e)} multiple type="file" />
+              <Button color="secondary" variant="contained" component="span">
+                CHOOSE VIDEO
+              </Button>
+            </label>
           </Grid>
           <Grid item xs={12} sm={5}>
             <Typography style={{ textAlign: 'center' }} variant="h4">Guidelines</Typography>
@@ -112,7 +157,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
           </Grid>
         </Grid>
       </Box>}
-      {uploadedVideo && <Box sx={{ width: '100%', p: 2 }}>
+      {videoUploadStatus && <Box sx={{ width: '100%', p: 2 }}>
         <Typography variant="h3">
           What type of information are you submitting?
         </Typography>
@@ -123,11 +168,11 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             aria-label="basic tabs example"
             variant="scrollable"
           >
-            <Tab label="Threat against a school" {...a11yProps(0)} />
-            <Tab label="Mass Attack Threat" {...a11yProps(1)} />
-            <Tab label="Weapons in School" {...a11yProps(2)} />
+            <Tab disabled label="Threat against a school" {...a11yProps(0)} />
+            <Tab disabled label="Mass Attack Threat" {...a11yProps(1)} />
+            <Tab disabled label="Weapons in School" {...a11yProps(2)} />
             <Tab label="Bullying" {...a11yProps(3)} />
-            <Tab label="Cyberbullying" {...a11yProps(4)} />
+            <Tab disabled label="Cyberbullying" {...a11yProps(4)} />
             <Tab label="Other threat" {...a11yProps(5)} />
           </Tabs>
         </Box>

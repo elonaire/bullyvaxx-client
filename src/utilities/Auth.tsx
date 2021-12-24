@@ -13,7 +13,7 @@ class Auth {
 
     Axios.interceptors.request.use((config: any) => {
       const token = localStorage.getItem("app_id");
-      config.headers["Authorization"] = token;
+      config.headers["Authorization"] = `Bearer ${token}`;
 
       return config;
     });
