@@ -42,6 +42,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
     const [formSchema, setFormSchema] = React.useState({ type: 'Individual', entity_name: '', first_name: '', last_name: '', state: '', county: '', email: '', username: '', school1_name: '', school1_zip_code: '', school2_name: '', school2_zip_code: '', school3_name: '', school3_zip_code: '', quantity: schoolsArray.length, schoolsArray });
     const [modalContent, setModalContent] = React.useState('' as any);
     const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
+    const [searchTerm, setSearchTerm] = React.useState('');
 
     let statesUrl = 'https://api.census.gov/data/2017/pep/population?get=POP,GEONAME&for=state:*&key=8ea19e5ad6a8d3f6f527ef60f677f2e6586178f1';
     let url: string;
@@ -226,13 +227,37 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
         createSponsorship({ userInfo, form: userDetails });
     };
 
-    let handleSearch = (e: any) => {
-        if (e.key === 'Enter') {
-            setMessageType('info');
-            setModalContent(<div>
-                Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
-            </div>)
+    let handleSearch = async (e: any) => {
+        if (searchTerm && e.key === 'Enter') {
+            setLoading(true);
+            try {
+                let res = await Axios({
+                    method: 'get',
+                    url: `${url + '/sponsorships'}?zip_name=${searchTerm}`,
+                });
+
+                console.log('res.data', res.data, response, loading);
+
+                setResponse(res.data);
+
+                setLoading(false);
+                if (res.data?.length === 0) {
+                    setModalContent(<div>
+                        Your school is currently not protected by BullyVaxx. All that is needed for your school to become protected is a individual or business to step up and become the sponsor for the school. Real estate agents, new and used auto dealerships, personal injury attorneys, restaurants and church youth groups all make great sponsors for BullyVaxx. Please contact any of these businesses/groups that you are connected to and get your school protected. To sponsor a school please click <Link to="/sponsors">HERE</Link>.
+                    </div>)
+                } else {
+                    setModalContent(<div>
+                        Yes, your school is protected by BullyVaxx, to file a bully or threat report please click <Link to="/login">HERE</Link>.
+                    </div>)
+                }
+
+                setMessageType('info');
             setOpenModal(true);
+            } catch (error: any) {
+                console.log(error.response);
+                setResponse(error.response);
+                setLoading(false);
+            }
         }
     }
 
@@ -242,12 +267,16 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
 
     let handleAddSchool = () => {
         let nextSchool = schoolsArray.length + 1;
-        let updatedSchools: SchoolInfo[] = [...schoolsArray, {name: `school${nextSchool}_name`, zip_code: `school${nextSchool}_zip_code`}];
-        let updatedFormSchema = {...formSchema, [`school${nextSchool}_name`]: '', [`school${nextSchool}_zip_code`]: ''};
+        let updatedSchools: SchoolInfo[] = [...schoolsArray, { name: `school${nextSchool}_name`, zip_code: `school${nextSchool}_zip_code` }];
+        let updatedFormSchema = { ...formSchema, [`school${nextSchool}_name`]: '', [`school${nextSchool}_zip_code`]: '' };
         setFormSchema(updatedFormSchema);
         setSchoolsArray(updatedSchools);
         console.log('updatedFormSchema', updatedFormSchema);
-        
+
+    }
+
+    let handleSearchInput = (e: any) => {
+        setSearchTerm(e?.target?.value);
     }
 
     return (
@@ -292,6 +321,7 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                                 color: 'secondary',
                                                 onKeyUp: e => handleSearch(e)
                                             }}
+                                            onChange={e => handleSearchInput(e)}
                                         />
                                     )}
                                 />
@@ -336,10 +366,10 @@ const Sponsors: FunctionComponent<SponsorsProps> = () => {
                                 <FormFieldWrapper>
                                     <InputField size="small" color="secondary" fullWidth={true} name={school?.zip_code} variant="outlined" label={`Zip Code of School #${index + 1}`} />
                                 </FormFieldWrapper></div>)}
-                            <div style={{marginBottom: '2%', marginTop: '2%'}}>
-                            <Button onClick={handleAddSchool} variant="contained" endIcon={<AddIcon />}>
-                                ADD SCHOOL
-                            </Button>
+                            <div style={{ marginBottom: '2%', marginTop: '2%' }}>
+                                <Button onClick={handleAddSchool} variant="contained" endIcon={<AddIcon />}>
+                                    ADD SCHOOL
+                                </Button>
                             </div>
                             {/* <FormFieldWrapper>
                                 <InputField size="small" color="secondary" fullWidth={true} name="quantity" type="number" variant="outlined" label="Number of sponsorships" />

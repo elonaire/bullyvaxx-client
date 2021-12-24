@@ -64,6 +64,34 @@ const Reports: FunctionComponent<ReportsProps> = () => {
   const [openModal, setOpenModal] = React.useState(false);
   const [modalContent, setModalContent] = React.useState('' as any);
   const [messageType, setMessageType] = React.useState('' as 'info' | 'warning' | 'error' | 'success' | 'danger');
+  const [bullyingReportForm] = React.useState({
+    username: '', trustee_or_not: '',
+    full_name: '',
+    phone: '',
+    email: '',
+    school_name: '',
+    admin_email: '',
+    bully_finitial: '',
+    bully_lname: '',
+    bully_fullname: '',
+    gender: '',
+    bully_grade: '',
+    bully_teacher: '',
+    incident_date: '',
+    incident_time: '',
+    more_bullies: '',
+    bully_supporters: '',
+    staff_witnessed: '',
+    staff_witness: '',
+    staff_action: '',
+    incident_place: '',
+    physically_abused: '',
+    victim_handicapped: '',
+    victim_younger: '',
+    details: '',
+    serial_bully: '',
+    other_incidents: '',
+  });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -109,6 +137,86 @@ const Reports: FunctionComponent<ReportsProps> = () => {
 
   let handleModalClose = () => {
     setOpenModal(false);
+  }
+
+  const sendBullyingReport = async (reqBody: any) => {
+    setLoading(true);
+
+    console.log('reqBody', reqBody);
+    
+
+    const template = `
+    Dear Principal, I have information involving bullying in your
+            school. I am reporting this threat through The Threat Alert system.
+            <br />
+            ${reqBody.trustee_or_not}<br />
+            If you have any further questions or need to immediately verify this
+            information please contact me and I will provide the answers for
+            you. <br />
+            Your Full Name ${reqBody.full_name}<br />
+            Your cell phone number ${reqBody.phone}<br />
+            My e-mail address ${reqBody.email}<br />
+            Name of School ${reqBody.school_name}<br />
+            Principal’s email address ${reqBody.admin_email}<br />
+            What is the first initial in the bully’s first name ${reqBody.bully_finitial}<br />
+            What is the bully’s last name ${reqBody.bully_lname}<br />
+            Full name of bully ${reqBody.bully_fullname}<br />
+            Gender of bully: ${reqBody.gender}<br />
+            Grade of bully. ${reqBody.bully_grade}<br />
+            Homeroom Teacher of bully ${reqBody.bully_teacher}<br />
+            Date of incident ${reqBody.incident_date}<br />
+            Time of incident ${reqBody.incident_time}<br />
+            If more than one bully add their names here ${reqBody.more_bullies}<br />
+            Names of any other students that supported the bully’s actions ${reqBody.other_incidents}
+            <br />
+            Did any teacher or staff member see this incident? ${reqBody.staff_witnessed}<br />
+            If yes, who was the teacher / staff member? ${reqBody.staff_witness}
+            <br />
+            What actions did the teacher / staff member take? ${reqBody.staff_action}<br />
+            Where did this incident occur? ${reqBody.incident_place}<br />
+            Did the bully physically abuse the victim? ${reqBody.physically_abused}<br />
+            Was the victim a handicapped student? ${reqBody.victim_handicapped}<br />
+            Was the victim a
+            younger or smaller student than the bully? ${reqBody.victim_younger}<br />
+            In complete detail provide all information you have on this threat. ${reqBody.details}
+            <br />
+            Have you witnessed this bully abusing other students in the past? ${reqBody.serial_bully}
+            <br />
+            If Yes, please provide any details of other bullying incidents that
+            you have witnessed or seen in the past involving this bully. ${reqBody.other_incidents}<br />
+            Please send me a reply email confirming that you have received this
+            information, this will allow me to know that the information that I
+            have submitted is being properly addressed. Thank you.
+    `;
+
+    let data = {
+      sender: reqBody.email,
+      recipient: reqBody.admin_email,
+      subject: 'Bullying Report',
+      htmlBody: template
+    };
+
+    try {
+      let res = await Axios({
+        method: 'post',
+        url: `${url + '/mailing-service/send-mail'}`,
+        data
+      });
+
+      setResponse(res.data);
+
+      setLoading(false);
+      setMessageType('success');
+      setModalContent(<p>{res.data.message}</p>);
+      setOpenModal(true);
+    } catch (error: any) {
+      console.log(error.response);
+      setResponse(error.response);
+      setLoading(false);
+      setMessageType('error');
+      setModalContent(<p>{error?.response?.data?.message}</p>);
+      setOpenModal(true);
+    }
   }
 
   return (
@@ -173,7 +281,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             <Tab disabled label="Weapons in School" {...a11yProps(2)} />
             <Tab label="Bullying" {...a11yProps(3)} />
             <Tab disabled label="Cyberbullying" {...a11yProps(4)} />
-            <Tab label="Other threat" {...a11yProps(5)} />
+            <Tab disabled label="Other threat" {...a11yProps(5)} />
           </Tabs>
         </Box>
         <StyledTabPanel value={value} index={0}>
@@ -190,7 +298,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             Dear Principal, I have information involving a threat against your
             school. I am reporting this threat through The Threat Alert system.{' '}
             <br />
-            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
+            <FRadioButton name="trustee_or_not" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             I have uploaded an identification video in the Threat Alert System
             database. You can view this video at www.threatalert.us under my
             username
@@ -209,7 +317,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             Your Full Name <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="full_name"
               type="text"
               variant="standard"
             />
@@ -217,7 +325,7 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             Your cell phone number <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="phone"
               type="text"
               variant="standard"
             />
@@ -542,10 +650,10 @@ const Reports: FunctionComponent<ReportsProps> = () => {
         <StyledTabPanel value={value} index={3}>
           <Typography variant="h4">BULLYING</Typography>
           <Form
-            initialValues={{ form: { username: '' } }}
+            initialValues={bullyingReportForm}
             buttonText="submit report"
             buttonSize="medium"
-            submit={() => { }}
+            submit={sendBullyingReport}
           >
             To report BULLYING IN THE SCHOOL complete the form below and click
             SUBMIT REPORT. The report will automatically be sent by email to the
@@ -553,63 +661,63 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             Dear Principal, I have information involving bullying in your
             school. I am reporting this threat through The Threat Alert system.{' '}
             <br />
-            <FRadioButton name="gender" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
+            <FRadioButton name="trustee_or_not" options={['I am a trustee reporting this information for another individual who requests to not be identified; however, I will act as an intermediary so you can immediately access any additional information you need.', 'I am not a trustee for someone else, I am submitting this information on my own behalf.']} /><br />
             If you have any further questions or need to immediately verify this
             information please contact me and I will provide the answers for
             you. <br />
             Your Full Name <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="full_name"
               type="text"
               variant="standard"
             /><br />
             Your cell phone number <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="phone"
               type="text"
               variant="standard"
             /><br />
             My e-mail address <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="email"
               type="text"
               variant="standard"
             /><br />
             Name of School <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="school_name"
               type="text"
               variant="standard"
             /><br />
             Principal’s email address <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="admin_email"
               type="text"
               variant="standard"
             /><br />
             What is the first initial in the bully’s first name <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_finitial"
               type="text"
               variant="standard"
             /><br />
             What is the bully’s last name <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_lname"
               type="text"
               variant="standard"
             /><br />
             Full name of bully <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_fullname"
               type="text"
               variant="standard"
             /><br />
@@ -617,51 +725,51 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             Grade of bully. <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_grade"
               type="text"
               variant="standard"
             /><br />
             Homeroom Teacher of bully <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_teacher"
               type="text"
               variant="standard"
             /><br />
             Date of incident <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="incident_date"
               type="date"
               variant="standard"
             /><br />
             Time of incident <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="incident_time"
               type="time"
               variant="standard"
             /><br />
             If more than one bully add their names here <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="more_bullies"
               type="text"
               variant="standard"
             /><br />
             Names of any other students that supported the bully’s actions <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="bully_supporters"
               type="text"
               variant="standard"
             />
             <br />
-            Did any teacher or staff member see this incident? <br /><FRadioButton name="gender" options={['Yes', 'No']} /><br />
+            Did any teacher or staff member see this incident? <br /><FRadioButton name="staff_witnessed" options={['Yes', 'No']} /><br />
             If yes, who was the teacher / staff member? <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="staff_witness"
               type="text"
               variant="standard"
             />
@@ -669,37 +777,37 @@ const Reports: FunctionComponent<ReportsProps> = () => {
             What actions did the teacher / staff member take? <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="staff_action"
               type="text"
               variant="standard"
             /><br />
             Where did this incident occur? <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="incident_place"
               type="text"
               variant="standard"
             /><br />
-            Did the bully physically abuse the victim? <br /><FRadioButton name="gender" options={['Yes', 'No']} />
+            Did the bully physically abuse the victim? <br /><FRadioButton name="physically_abused" options={['Yes', 'No']} />
             <br />
-            Was the victim a handicapped student? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            Was the victim a handicapped student? <br /><FRadioButton name="victim_handicapped" options={['Yes', 'No']} /> <br />
             Was the victim a
-            younger or smaller student than the bully? <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            younger or smaller student than the bully? <br /><FRadioButton name="victim_younger" options={['Yes', 'No']} /> <br />
             In complete detail provide all information you have on this threat. <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="details"
               type="text"
               variant="standard"
             />
             <br />
             Have you witnessed this bully abusing other students in the past?
-            <br /><FRadioButton name="gender" options={['Yes', 'No']} /> <br />
+            <br /><FRadioButton name="serial_bully" options={['Yes', 'No']} /> <br />
             If Yes, please provide any details of other bullying incidents that
             you have witnessed or seen in the past involving this bully. <InputField
               size="small"
               color="secondary"
-              name="username"
+              name="other_incidents"
               type="text"
               variant="standard"
               isMultiline={true}
